@@ -1,5 +1,5 @@
 // app/page.tsx
-import ScrollWorld from "@/components/ScrollWorld";
+import StillWorld from "@/components/StillWorld";
 import InquiryForm from "@/components/sections/InquiryForm";
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
@@ -11,12 +11,31 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
-const UNITS = [
-  { id: "1a", name: "Unit 1A", img: "/renders/unit-1a.jpg", note: "Pool-apartment" },
-  { id: "1b", name: "Unit 1B", img: "/renders/unit-1b.jpg", note: "Pool-apartment" },
-  { id: "4d", name: "Unit 4D", img: "/renders/unit-4d.jpg", note: "Courtyard villa" },
-  { id: "5b", name: "Unit 5B", img: "/renders/unit-5b.jpg", note: "Villa" },
-  { id: "5d", name: "Unit 5D", img: "/renders/unit-5d.jpg", note: "Villa" },
+// Real DEV 10 mix (from the 100 SERIES layout plans): ten villas across four
+// layouts, plus an apartment house of five residences. Detail plans on request.
+const RESIDENCES = [
+  {
+    id: "villas",
+    name: "The Villas",
+    img: "/renders/villa-bath.jpg",
+    imgAlt: "Villa bathroom — stone basin and walk-in shower",
+    lead: "Ten private pool-villas across four layouts, each with its own walled garden, plunge pool and roof terrace.",
+    facts: ["10 villas", "4 layouts", "Private pools"],
+  },
+  {
+    id: "apartments",
+    name: "The Apartments",
+    img: "/renders/apt-living.jpg",
+    imgAlt: "Apartment living room in warm limewash and timber",
+    lead: "An apartment house of five managed residences — corner and mid layouts over three floors, run as a hands-off asset.",
+    facts: ["5 residences", "Corner & mid layouts", "Fully managed"],
+  },
+];
+
+const SCHEMES = [
+  { img: "/renders/scheme-light.jpg", name: "Light", note: "pale oak · bone limewash" },
+  { img: "/renders/scheme-mid.jpg", name: "Mid", note: "teak · warm mineral" },
+  { img: "/renders/scheme-dark.jpg", name: "Dark", note: "walnut · espresso" },
 ];
 
 const MATERIALS = [
@@ -28,8 +47,8 @@ const MATERIALS = [
 export default function Home() {
   return (
     <main className="relative">
-      {/* ── The scroll world — real renders, scroll as the camera ─────────── */}
-      <ScrollWorld />
+      {/* ── The scroll film — real DEV 10 renders, scroll as the camera ───── */}
+      <StillWorld />
 
       {/* ── The collection ────────────────────────────────────────────────── */}
       <section id="collection" className="px-[var(--section-px)] py-28">
@@ -48,20 +67,20 @@ export default function Home() {
           <div data-reveal className="mt-12 grid gap-4 md:grid-cols-2">
             {/* eslint-disable @next/next/no-img-element */}
             <img
-              src="/renders/masterplan-aerial.jpg"
-              alt="RAYA masterplan — aerial view of the collection"
+              src="/renders/bev.jpg"
+              alt="RAYA — bird's-eye view of the collection in the palms"
               loading="lazy"
               className="h-full w-full object-cover md:row-span-2"
             />
             <img
-              src="/renders/development-aerial.jpg"
-              alt="Aerial three-quarter view of the RAYA development"
+              src="/renders/facade-front.jpg"
+              alt="The apartment house — front facade"
               loading="lazy"
               className="aspect-[3/2] w-full object-cover"
             />
             <img
-              src="/renders/facade.jpg"
-              alt="RAYA facades between the palms"
+              src="/renders/facade-left.jpg"
+              alt="The apartment house between the palms"
               loading="lazy"
               className="aspect-[3/2] w-full object-cover"
             />
@@ -76,34 +95,55 @@ export default function Home() {
           <div data-reveal className="max-w-xl">
             <Eyebrow>The residences</Eyebrow>
             <h2 className="font-display text-limestone" style={{ fontSize: "var(--text-h1)" }}>
-              Five ways to hold the high ground.
+              Two ways to hold the high ground.
             </h2>
             <p className="mt-6 leading-relaxed text-limestone/70" style={{ fontSize: "var(--text-lead)" }}>
-              From managed one-bedroom pool-apartments to full villas. Final
-              typologies, plans and pricing on request.
+              Ten pool-villas and an apartment house of five managed residences.
+              Layout plans and pricing on request.
             </p>
           </div>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {UNITS.map((u) => (
-              <figure key={u.id} data-reveal className="group overflow-hidden border border-limestone/10 bg-espresso/60">
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
+            {RESIDENCES.map((r) => (
+              <figure key={r.id} data-reveal className="group overflow-hidden border border-limestone/10 bg-espresso/60">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={u.img}
-                  alt={`${u.name} — interior render`}
+                  src={r.img}
+                  alt={r.imgAlt}
                   loading="lazy"
                   className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 />
-                <figcaption className="flex items-baseline justify-between p-5">
-                  <span className="font-display text-xl text-limestone">{u.name}</span>
-                  <span className="label-caps text-mushroom">{u.note}</span>
+                <figcaption className="p-6">
+                  <span className="font-display text-2xl text-limestone">{r.name}</span>
+                  <p className="mt-3 leading-relaxed text-limestone/70">{r.lead}</p>
+                  <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+                    {r.facts.map((f) => (
+                      <span key={f} className="label-caps text-clay">{f}</span>
+                    ))}
+                  </div>
                 </figcaption>
               </figure>
             ))}
-            <div data-reveal className="flex flex-col justify-center border border-limestone/10 p-8">
-              <p className="font-display text-2xl text-limestone">Full unit mix on request.</p>
-              <a href="#enquire" className="label-caps mt-6 inline-block text-clay hover:text-limestone">
-                Request the package →
-              </a>
+          </div>
+
+          {/* three interior schemes, straight from the DEV 10 render set */}
+          <div data-reveal className="mt-16">
+            <p className="label-caps mb-6 text-mushroom">Three interior schemes</p>
+            <div className="grid grid-cols-3 gap-4">
+              {SCHEMES.map((s) => (
+                <figure key={s.name}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={s.img}
+                    alt={`${s.name} interior scheme`}
+                    loading="lazy"
+                    className="aspect-[4/5] w-full object-cover"
+                  />
+                  <figcaption className="mt-3">
+                    <span className="font-display text-lg text-limestone">{s.name}</span>
+                    <span className="label-caps ml-3 text-mushroom">{s.note}</span>
+                  </figcaption>
+                </figure>
+              ))}
             </div>
           </div>
         </div>
