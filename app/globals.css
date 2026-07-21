@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   RAYA — "Mineral Earth"
+   Tokens from docs/RAYA-Brand-Presentation-4K.pdf (slide 5). Warm stone, sea
+   light. Nothing tropical. Quiet luxury — drama lives in the motion, not the UI.
+   @theme tokens become utilities automatically: --color-espresso → bg-espresso,
+   text-espresso, border-espresso; --font-display → font-display.
+──────────────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* ── Palette ────────────────────────────────────────────────────────────── */
+  --color-limestone: #eae3d7; /* ground / light bg / ink-on-dark   */
+  --color-clay:      #b8a28e; /* secondary                          */
+  --color-mushroom:  #96806c; /* captions / muted text              */
+  --color-walnut:    #76614f; /* timber / mid tone                  */
+  --color-espresso:  #3b2e24; /* primary ink / dark bg              */
+  --color-olive:     #36422e; /* accent                             */
+
+  /* warm stone tints used by the 3D travertine + scrims */
+  --color-travertine: #d9cdba;
+  --color-sea-light:  #f0d8b4; /* golden-hour wash                  */
+
+  /* ── Type ───────────────────────────────────────────────────────────────── */
+  --font-display: var(--font-marcellus); /* classical Roman serif — sparingly */
+  --font-body:    var(--font-jost);      /* light geometric sans              */
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Raw design tokens — consumed via var() in component styles. No utilities.
+──────────────────────────────────────────────────────────────────────────────── */
+:root {
+  --text-hero: clamp(3.25rem, 11vw, 11rem);
+  --text-h1:   clamp(2.25rem, 5vw, 4.5rem);
+  --text-h2:   clamp(1.6rem, 3vw, 2.75rem);
+  --text-lead: clamp(1.05rem, 1.6vw, 1.35rem);
+
+  --tracking-wordmark: 0.42em; /* RAYA letter-spaced wordmark */
+  --tracking-caps:     0.28em;
+  --tracking-heading:  0.02em;
+
+  --section-px: clamp(1.5rem, 6vw, 8rem);
+  --ease-cine: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  background: var(--color-espresso);
+  color: var(--color-limestone);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* Lenis sets this; keep native scroll sane before it boots / when reduced-motion. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ── Utilities ──────────────────────────────────────────────────────────────── */
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+.label-caps {
+  font-family: var(--font-body), sans-serif;
+  font-weight: 400;
+  font-size: 0.7rem;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+
+/* Copy floats over the moving 3D stone; a soft directional shadow + faint scrim
+   keep it readable wherever the bright monogram drifts behind it. */
+.cine-text {
+  text-shadow: 0 1px 24px rgba(31, 24, 18, 0.65), 0 1px 3px rgba(31, 24, 18, 0.5);
+}
+.cine-panel {
+  position: relative;
+}
+.cine-panel::before {
+  content: "";
+  position: absolute;
+  inset: -2rem -2.5rem;
+  background: radial-gradient(
+    120% 120% at 50% 50%,
+    rgba(59, 46, 36, 0.55) 0%,
+    rgba(59, 46, 36, 0) 72%
+  );
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* scroll-reveal initial state — SmoothScroll's ScrollTrigger.batch animates these in */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: smooth !important;
+  }
+}
+
+/* scroll-world engine theme — map its tokens to the Mineral Earth palette */
+.sw-root {
+  --sw-bg: var(--color-espresso);
+  --sw-ink: var(--color-limestone);
+  --sw-ink-soft: color-mix(in srgb, var(--color-limestone) 66%, transparent);
+  --sw-accent: var(--color-clay);
+  --sw-font-display: var(--font-marcellus), Georgia, serif;
+  --sw-font-body: var(--font-jost), system-ui, sans-serif;
+}
+
+/* Past the world's end (.sw-done set by ScrollWorld), the engine's fixed layers
+   must yield to the page sections below. */
+.sw-root .sw-copylayer,
+.sw-root .sw-sky,
+.sw-root .sw-route,
+.sw-root .sw-scrollbar,
+.sw-root .sw-hint {
+  transition: opacity 0.4s ease;
+}
+.sw-root.sw-done .sw-copylayer,
+.sw-root.sw-done .sw-sky,
+.sw-root.sw-done .sw-route,
+.sw-root.sw-done .sw-scrollbar,
+.sw-root.sw-done .sw-hint {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+::selection {
+  background: var(--color-walnut);
+  color: var(--color-limestone);
+}
