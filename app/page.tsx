@@ -126,6 +126,30 @@ export default function Home() {
             ))}
           </div>
 
+          {/* the villa in photos — full render set from the design team */}
+          <div data-reveal className="mt-16">
+            <p className="label-caps mb-6 text-mushroom">Inside the villa</p>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+              {[
+                { img: "/renders/villa-ext.jpg", alt: "Villa row exterior between the palms" },
+                { img: "/renders/villa-entrance.jpg", alt: "Villa entrance — timber screen and stone" },
+                { img: "/renders/villa-pool.jpg", alt: "Villa plunge pool with stepping pads" },
+                { img: "/renders/villa-living.jpg", alt: "Villa living room in limewash and linen" },
+                { img: "/renders/villa-bed2.jpg", alt: "Villa bedroom with woven pendant light" },
+                { img: "/renders/villa-rooftop.jpg", alt: "Villa rooftop terrace under a timber ceiling" },
+              ].map((g) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={g.img}
+                  src={g.img}
+                  alt={g.alt}
+                  loading="lazy"
+                  className="aspect-[4/3] w-full object-cover"
+                />
+              ))}
+            </div>
+          </div>
+
           {/* three interior schemes, straight from the DEV 10 render set */}
           <div data-reveal className="mt-16">
             <p className="label-caps mb-6 text-mushroom">Three interior schemes</p>
