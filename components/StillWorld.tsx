@@ -32,8 +32,8 @@ const CHAPTERS: Chapter[] = [
     id: "pool",
     img: "/chapters/pool.jpg",
     eyebrow: "The pool",
-    title: "Dusk, at the door.",
-    body: "Every residence keeps its own pool — a quiet green-tiled line between the walls, lit for the end of the day.",
+    title: "A private line of water.",
+    body: "Every residence keeps its own pool — a quiet green-tiled line between the walls, palms overhead.",
   },
   {
     id: "living",
@@ -55,6 +55,13 @@ const CHAPTERS: Chapter[] = [
     eyebrow: "The bedroom",
     title: "Stillness, by design.",
     body: "Morning light through sheer linen. The swell is minutes away; the quiet is at the door.",
+  },
+  {
+    id: "house",
+    img: "/chapters/house.jpg",
+    eyebrow: "Golden hour",
+    title: "The house lights up.",
+    body: "Sunset behind the palms, every window warm — the apartment house at the end of the day.",
   },
   {
     id: "entrance",

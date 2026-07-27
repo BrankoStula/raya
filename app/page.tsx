@@ -17,8 +17,8 @@ const RESIDENCES = [
   {
     id: "villas",
     name: "The Villas",
-    img: "/renders/villa-bath.jpg",
-    imgAlt: "Villa bathroom — stone basin and walk-in shower",
+    img: "/renders/villa-bedroom.jpg",
+    imgAlt: "Villa bedroom — timber headboard wall, soft morning light",
     lead: "Ten private pool-villas across four layouts, each with its own walled garden, plunge pool and roof terrace.",
     facts: ["10 villas", "4 layouts", "Private pools"],
   },
@@ -74,13 +74,13 @@ export default function Home() {
             />
             <img
               src="/renders/facade-front.jpg"
-              alt="The apartment house — front facade"
+              alt="The apartment house at dusk — lit windows behind the planting"
               loading="lazy"
               className="aspect-[3/2] w-full object-cover"
             />
             <img
               src="/renders/facade-left.jpg"
-              alt="The apartment house between the palms"
+              alt="The villa row — ivy walls and double-height glazing"
               loading="lazy"
               className="aspect-[3/2] w-full object-cover"
             />
