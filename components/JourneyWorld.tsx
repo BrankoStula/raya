@@ -72,11 +72,23 @@ const SECTIONS = [
     body: "Soft evening light through black-framed glazing. The swell is minutes away; the quiet is at the door.",
   },
   {
-    id: "rooftop",
-    label: "The Rooftop",
+    id: "bath",
+    label: "The Bathroom",
     still: "/journey/leg_6.webp",
     clip: "/journey/leg_6.mp4",
     clipMobile: "/journey/leg_6-lite.mp4",
+    accent: "#96806c",
+    linger: 0.35,
+    eyebrow: "The bathroom",
+    title: "Stone, water, light.",
+    body: "Through the bedroom door: a walk-in rain shower and a carved stone basin under soft niche light.",
+  },
+  {
+    id: "rooftop",
+    label: "The Rooftop",
+    still: "/journey/leg_7.webp",
+    clip: "/journey/leg_7.mp4",
+    clipMobile: "/journey/leg_7-lite.mp4",
     accent: "#eae3d7",
     scroll: 1.6,
     linger: 0.5,
@@ -105,7 +117,7 @@ export default function JourneyWorld() {
       diveScroll: 1.35,
       crossfade: 0.14,
       sections: SECTIONS,
-      connectors: [null, null, null, null, null],
+      connectors: SECTIONS.map(() => null).slice(1),
     });
 
     // Engine assumes it owns the page; fade its fixed layers past the world end.
