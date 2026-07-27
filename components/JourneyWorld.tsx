@@ -30,6 +30,7 @@ const SECTIONS = [
     clip: "/journey/leg_2.mp4",
     clipMobile: "/journey/leg_2-lite.mp4",
     accent: "#96806c",
+    scroll: 1.9, // 16s assembled clip (street → villa door → pool) needs the dwell
     linger: 0.35,
     eyebrow: "The pool",
     title: "A private line of water.",
@@ -90,7 +91,7 @@ const SECTIONS = [
     clip: "/journey/leg_7.mp4",
     clipMobile: "/journey/leg_7-lite.mp4",
     accent: "#eae3d7",
-    scroll: 1.6,
+    scroll: 2.2, // 22s assembled clip (bath → back to stair → climb → rooftop)
     linger: 0.5,
     eyebrow: "The rooftop",
     title: "Take the high ground.",
