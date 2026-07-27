@@ -91,8 +91,8 @@ const SECTIONS = [
     clip: "/journey/leg_7.mp4",
     clipMobile: "/journey/leg_7-lite.mp4",
     accent: "#eae3d7",
-    scroll: 2.2, // 22s assembled clip (bath → back to stair → climb → rooftop)
-    linger: 0.5,
+    scroll: 3.0, // 36s finale: bath → stair → door onto the roof → terrace dwell
+    linger: 0.55,
     eyebrow: "The rooftop",
     title: "Take the high ground.",
     body: "The journey ends above the palms. Availability, pricing and the full RAYA package on request.",
