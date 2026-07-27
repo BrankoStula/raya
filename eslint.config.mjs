@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // vendored scroll-world engine (reference implementation, kept verbatim)
+    "lib/scrub-engine.js",
   ]),
 ]);
 

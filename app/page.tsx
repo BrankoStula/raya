@@ -1,5 +1,5 @@
 // app/page.tsx
-import StillWorld from "@/components/StillWorld";
+import JourneyWorld from "@/components/JourneyWorld";
 import InquiryForm from "@/components/sections/InquiryForm";
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
@@ -47,8 +47,9 @@ const MATERIALS = [
 export default function Home() {
   return (
     <main className="relative">
-      {/* ── The scroll film — real DEV 10 renders, scroll as the camera ───── */}
-      <StillWorld />
+      {/* ── The villa journey — one continuous AI camera flight, scrubbed by
+             scroll, anchored on the real DEV 10 renders ─────────────────────── */}
+      <JourneyWorld />
 
       {/* ── The collection ────────────────────────────────────────────────── */}
       <section id="collection" className="px-[var(--section-px)] py-28">

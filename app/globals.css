@@ -123,6 +123,34 @@ html.lenis body {
   }
 }
 
+/* scroll-world engine theme — map its tokens to the Mineral Earth palette */
+.sw-root {
+  --sw-bg: var(--color-espresso);
+  --sw-ink: var(--color-limestone);
+  --sw-ink-soft: color-mix(in srgb, var(--color-limestone) 66%, transparent);
+  --sw-accent: var(--color-clay);
+  --sw-font-display: var(--font-marcellus), Georgia, serif;
+  --sw-font-body: var(--font-jost), system-ui, sans-serif;
+}
+
+/* Past the world's end (.sw-done set by JourneyWorld), the engine's fixed layers
+   must yield to the page sections below. */
+.sw-root .sw-copylayer,
+.sw-root .sw-sky,
+.sw-root .sw-route,
+.sw-root .sw-scrollbar,
+.sw-root .sw-hint {
+  transition: opacity 0.4s ease;
+}
+.sw-root.sw-done .sw-copylayer,
+.sw-root.sw-done .sw-sky,
+.sw-root.sw-done .sw-route,
+.sw-root.sw-done .sw-scrollbar,
+.sw-root.sw-done .sw-hint {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
 ::selection {
   background: var(--color-walnut);
   color: var(--color-limestone);
