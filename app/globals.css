@@ -133,6 +133,21 @@ html.lenis body {
   --sw-font-body: var(--font-jost), system-ui, sans-serif;
 }
 
+/* Brand corrections to the engine chrome: no route rail, and square, quiet
+   buttons/tags matching the site's label-caps language (engine defaults are pills). */
+.sw-root .sw-route {
+  display: none;
+}
+.sw-root .sw-btn,
+.sw-root .sw-copy__tags li {
+  border-radius: 0;
+  font-family: var(--font-jost), sans-serif;
+  font-weight: 400;
+  font-size: 0.7rem;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+
 /* Past the world's end (.sw-done set by JourneyWorld), the engine's fixed layers
    must yield to the page sections below. */
 .sw-root .sw-copylayer,
