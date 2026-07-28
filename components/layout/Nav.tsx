@@ -34,7 +34,7 @@ export default function Nav() {
           scrolled || open ? "bg-espresso/70 backdrop-blur-md" : "bg-transparent"
         }`}
       >
-      <nav className="mx-auto flex max-w-[1440px] items-center justify-between px-[var(--section-px)] py-5">
+      <nav className="flex items-center justify-between px-[var(--container-inset)] py-5">
         <a
           href="#hero"
           className="font-display text-limestone text-xl"

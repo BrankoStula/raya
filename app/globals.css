@@ -39,6 +39,9 @@
   --tracking-heading:  0.02em;
 
   --section-px: clamp(1.25rem, 4vw, 4.5rem);
+  /* one shared horizontal rhythm: every section pads with this, so all content
+     edges align; wide screens cap content at ~1600px worth of line length */
+  --container-inset: max(calc((100vw - 1600px) / 2 + var(--section-px)), var(--section-px));
   --ease-cine: cubic-bezier(0.16, 1, 0.3, 1);
 }
 

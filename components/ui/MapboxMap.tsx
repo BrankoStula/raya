@@ -1,8 +1,8 @@
 // components/ui/MapboxMap.tsx
 "use client";
 
-import { useState } from "react";
-import Map, { Marker, NavigationControl } from "react-map-gl/mapbox";
+import { useCallback, useState } from "react";
+import Map, { Marker, NavigationControl, Source, Layer } from "react-map-gl/mapbox";
 import { MapPin, Waves, Dumbbell, Landmark, Plane, Palmtree } from "lucide-react";
 import "mapbox-gl/dist/mapbox-gl.css";
 
@@ -25,14 +25,14 @@ type MarkerStyle = {
   diameter: string;
 };
 
-// Mineral Earth marker language — espresso chips, clay accents, RAYA pin in clay.
+// Mineral Earth marker language on the dark map — limestone chips, clay RAYA pin.
 const MARKER: Record<POIType, MarkerStyle> = {
   project: { Icon: MapPin,   bg: "#b8a28e", color: "#3b2e24", iconSize: 16, diameter: "2.75rem" },
-  surf:    { Icon: Waves,    bg: "rgba(59,46,36,0.92)", color: "#b8a28e", iconSize: 12, diameter: "1.75rem" },
-  gym:     { Icon: Dumbbell, bg: "rgba(59,46,36,0.92)", color: "#b8a28e", iconSize: 12, diameter: "1.75rem" },
-  temple:  { Icon: Landmark, bg: "rgba(59,46,36,0.92)", color: "#b8a28e", iconSize: 12, diameter: "1.75rem" },
-  beach:   { Icon: Palmtree, bg: "rgba(59,46,36,0.92)", color: "#b8a28e", iconSize: 12, diameter: "1.75rem" },
-  airport: { Icon: Plane,    bg: "rgba(59,46,36,0.92)", color: "#b8a28e", iconSize: 14, diameter: "2.25rem" },
+  surf:    { Icon: Waves,    bg: "rgba(234,227,215,0.92)", color: "#3b2e24", iconSize: 12, diameter: "1.75rem" },
+  gym:     { Icon: Dumbbell, bg: "rgba(234,227,215,0.92)", color: "#3b2e24", iconSize: 12, diameter: "1.75rem" },
+  temple:  { Icon: Landmark, bg: "rgba(234,227,215,0.92)", color: "#3b2e24", iconSize: 12, diameter: "1.75rem" },
+  beach:   { Icon: Palmtree, bg: "rgba(234,227,215,0.92)", color: "#3b2e24", iconSize: 12, diameter: "1.75rem" },
+  airport: { Icon: Plane,    bg: "rgba(234,227,215,0.92)", color: "#3b2e24", iconSize: 14, diameter: "2.25rem" },
 };
 
 type Props = {
@@ -41,8 +41,51 @@ type Props = {
 
 const RAYA_CENTER = { longitude: 115.1223944, latitude: -8.8100574 };
 
+const routeGeoJSON = (coords: [number, number][]) => ({
+  type: "Feature" as const,
+  properties: {},
+  geometry: { type: "LineString" as const, coordinates: coords },
+});
+
 export default function MapboxMap({ pois }: Props) {
   const [loaded, setLoaded] = useState(false);
+  const [route, setRoute] = useState<[number, number][] | null>(null);
+  const [routeTo, setRouteTo] = useState<string | null>(null);
+
+  // Click a POI → driving route from RAYA drawn on the map (click again to clear).
+  const showRoute = useCallback(
+    async (poi: POI) => {
+      if (poi.type === "project" || routeTo === poi.label) {
+        setRoute(null);
+        setRouteTo(null);
+        return;
+      }
+      setRouteTo(poi.label);
+      try {
+        const url =
+          `https://api.mapbox.com/directions/v5/mapbox/driving/` +
+          `${RAYA_CENTER.longitude},${RAYA_CENTER.latitude};${poi.longitude},${poi.latitude}` +
+          `?geometries=geojson&overview=full&access_token=${MAPBOX_TOKEN}`;
+        const res = await fetch(url);
+        const json = await res.json();
+        const coords = json.routes?.[0]?.geometry?.coordinates as
+          | [number, number][]
+          | undefined;
+        setRoute(
+          coords ?? [
+            [RAYA_CENTER.longitude, RAYA_CENTER.latitude],
+            [poi.longitude, poi.latitude],
+          ],
+        );
+      } catch {
+        setRoute([
+          [RAYA_CENTER.longitude, RAYA_CENTER.latitude],
+          [poi.longitude, poi.latitude],
+        ]);
+      }
+    },
+    [routeTo],
+  );
 
   return (
     <Map
@@ -55,7 +98,7 @@ export default function MapboxMap({ pois }: Props) {
         bearing: -12,
       }}
       style={{ width: "100%", height: "100%" }}
-      mapStyle="mapbox://styles/mapbox/light-v11"
+      mapStyle="mapbox://styles/mapbox/dark-v11"
       scrollZoom={false}
       dragPan
       attributionControl={false}
@@ -63,10 +106,29 @@ export default function MapboxMap({ pois }: Props) {
     >
       <NavigationControl position="bottom-right" showCompass={false} />
 
+      {/* driving route from RAYA to the clicked POI (azurea's line language) */}
+      {route && loaded && (
+        <Source id="route-source" type="geojson" data={routeGeoJSON(route)}>
+          <Layer
+            id="route-shadow"
+            type="line"
+            paint={{ "line-color": "#000000", "line-width": 8, "line-opacity": 0.25, "line-blur": 6 }}
+            layout={{ "line-join": "round", "line-cap": "round" }}
+          />
+          <Layer
+            id="route-line"
+            type="line"
+            paint={{ "line-color": "#b8a28e", "line-width": 3.5, "line-opacity": 0.95 }}
+            layout={{ "line-join": "round", "line-cap": "round" }}
+          />
+        </Source>
+      )}
+
       {loaded &&
         pois.map((poi, i) => {
           const s = MARKER[poi.type];
           const Icon = s.Icon;
+          const active = routeTo === poi.label;
           return (
             <Marker
               key={`${poi.label}-${i}`}
@@ -74,7 +136,13 @@ export default function MapboxMap({ pois }: Props) {
               latitude={poi.latitude}
               anchor="center"
             >
-              <div className="relative flex items-center justify-center" title={poi.label}>
+              <button
+                type="button"
+                aria-label={poi.type === "project" ? "RAYA" : `Route to ${poi.label}`}
+                onClick={() => showRoute(poi)}
+                className="relative flex cursor-pointer items-center justify-center bg-transparent"
+                title={poi.label}
+              >
                 {poi.type === "project" && (
                   <span
                     className="absolute animate-ping rounded-full opacity-40"
@@ -82,26 +150,28 @@ export default function MapboxMap({ pois }: Props) {
                   />
                 )}
                 <div
-                  style={{ backgroundColor: s.bg, width: s.diameter, height: s.diameter }}
+                  style={{ backgroundColor: active ? "#b8a28e" : s.bg, width: s.diameter, height: s.diameter }}
                   className={[
-                    "relative flex cursor-default select-none items-center justify-center rounded-full",
+                    "relative flex select-none items-center justify-center rounded-full",
                     "transition-transform duration-200 hover:scale-110",
                     poi.type === "project"
                       ? "shadow-lg ring-2 ring-clay shadow-clay/30"
-                      : "shadow-sm ring-1 ring-clay/25",
+                      : active
+                        ? "shadow-md ring-2 ring-clay"
+                        : "shadow-sm ring-1 ring-clay/25",
                   ].join(" ")}
                 >
-                  <Icon size={s.iconSize} color={s.color} strokeWidth={1.8} />
+                  <Icon size={s.iconSize} color={active ? "#3b2e24" : s.color} strokeWidth={1.8} />
                 </div>
-                {poi.type === "project" && (
+                {(poi.type === "project" || active) && (
                   <span
-                    className="pointer-events-none absolute top-full mt-1.5 select-none whitespace-nowrap text-[8px] font-semibold uppercase tracking-[0.18em] text-espresso"
-                    style={{ textShadow: "0 1px 4px rgba(234,227,215,0.9)" }}
+                    className="pointer-events-none absolute top-full mt-1.5 select-none whitespace-nowrap text-[8px] font-semibold uppercase tracking-[0.18em] text-clay"
+                    style={{ textShadow: "0 1px 4px rgba(0,0,0,0.8)" }}
                   >
-                    RAYA
+                    {poi.type === "project" ? "RAYA" : poi.label}
                   </span>
                 )}
-              </div>
+              </button>
             </Marker>
           );
         })}

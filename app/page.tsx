@@ -68,10 +68,11 @@ export default function Home() {
              fade-out band so there's no dead scroll (Ignite-style handoff) ──── */}
       <section
         id="bukit"
-        className="relative z-10 -mt-[38vh] bg-espresso px-[var(--section-px)] pb-28 pt-24"
+        className="relative z-10 -mt-[38vh] bg-espresso pb-28 pt-24"
       >
-        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[2fr_3fr]">
-          <div data-reveal>
+        {/* map bleeds to the right viewport edge — luxury full-width language */}
+        <div className="grid items-center gap-12 lg:grid-cols-[minmax(24rem,2fr)_3fr]">
+          <div data-reveal className="pl-[var(--container-inset)] pr-[var(--container-inset)] lg:pr-0">
             <Eyebrow>The Bukit</Eyebrow>
             <h2 className="font-display text-limestone" style={{ fontSize: "var(--text-h1)" }}>
               Everything, within reach.
@@ -92,15 +93,15 @@ export default function Home() {
               ))}
             </ul>
           </div>
-          <div data-reveal className="h-[420px] overflow-hidden border border-limestone/10 lg:h-[520px]">
+          <div data-reveal className="h-[480px] overflow-hidden border-y border-l border-limestone/10 lg:h-[640px]">
             <MapboxMap pois={POIS} />
           </div>
         </div>
       </section>
 
       {/* ── The collection ────────────────────────────────────────────────── */}
-      <section id="collection" className="px-[var(--section-px)] py-28">
-        <div className="mx-auto max-w-5xl">
+      <section id="collection" className="px-[var(--container-inset)] py-28">
+        <div className="w-full">
           <div data-reveal className="max-w-xl">
             <Eyebrow>The collection</Eyebrow>
             <h2 className="font-display text-limestone" style={{ fontSize: "var(--text-h1)" }}>
@@ -114,32 +115,41 @@ export default function Home() {
           </div>
           <div data-reveal className="mt-12 grid gap-4 md:grid-cols-2">
             {/* eslint-disable @next/next/no-img-element */}
-            <img
-              src="/renders/bev.jpg"
-              alt="RAYA — bird's-eye view of the collection in the palms"
-              loading="lazy"
-              className="h-full w-full object-cover md:row-span-2"
-            />
-            <img
-              src="/renders/facade-front.jpg"
-              alt="The apartment house at dusk — lit windows behind the planting"
-              loading="lazy"
-              className="aspect-[3/2] w-full object-cover"
-            />
-            <img
-              src="/renders/facade-left.jpg"
-              alt="The villa row — ivy walls and double-height glazing"
-              loading="lazy"
-              className="aspect-[3/2] w-full object-cover"
-            />
+            <div className="overflow-hidden md:row-span-2">
+              <img
+                data-parallax
+                src="/renders/bev.jpg"
+                alt="RAYA — bird's-eye view of the collection in the palms"
+                loading="lazy"
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="aspect-[3/2] overflow-hidden">
+              <img
+                data-parallax
+                src="/renders/facade-front.jpg"
+                alt="The apartment house at dusk — lit windows behind the planting"
+                loading="lazy"
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="aspect-[3/2] overflow-hidden">
+              <img
+                data-parallax
+                src="/renders/facade-left.jpg"
+                alt="The villa row — ivy walls and double-height glazing"
+                loading="lazy"
+                className="h-full w-full object-cover"
+              />
+            </div>
             {/* eslint-enable @next/next/no-img-element */}
           </div>
         </div>
       </section>
 
       {/* ── The residences ───────────────────────────────────────────────── */}
-      <section id="units" className="px-[var(--section-px)] py-28">
-        <div className="mx-auto max-w-5xl">
+      <section id="units" className="px-[var(--container-inset)] py-28">
+        <div className="w-full">
           <div data-reveal className="max-w-xl">
             <Eyebrow>The residences</Eyebrow>
             <h2 className="font-display text-limestone" style={{ fontSize: "var(--text-h1)" }}>
@@ -152,14 +162,17 @@ export default function Home() {
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {RESIDENCES.map((r) => (
-              <figure key={r.id} data-reveal className="group overflow-hidden border border-limestone/10 bg-espresso/60">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={r.img}
-                  alt={r.imgAlt}
-                  loading="lazy"
-                  className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                />
+              <figure key={r.id} data-reveal className="border border-limestone/10 bg-espresso/60">
+                <div className="aspect-[4/3] overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    data-parallax
+                    src={r.img}
+                    alt={r.imgAlt}
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
                 <figcaption className="p-6">
                   <span className="font-display text-2xl text-limestone">{r.name}</span>
                   <p className="mt-3 leading-relaxed text-limestone/70">{r.lead}</p>
@@ -185,14 +198,16 @@ export default function Home() {
                 { img: "/renders/villa-bed2.jpg", alt: "Villa bedroom with woven pendant light" },
                 { img: "/renders/villa-rooftop.jpg", alt: "Villa rooftop terrace under a timber ceiling" },
               ].map((g) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={g.img}
-                  src={g.img}
-                  alt={g.alt}
-                  loading="lazy"
-                  className="aspect-[4/3] w-full object-cover"
-                />
+                <div key={g.img} className="aspect-[4/3] overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    data-parallax
+                    src={g.img}
+                    alt={g.alt}
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
               ))}
             </div>
           </div>
@@ -203,13 +218,16 @@ export default function Home() {
             <div className="grid grid-cols-3 gap-4">
               {SCHEMES.map((s) => (
                 <figure key={s.name}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={s.img}
-                    alt={`${s.name} interior scheme`}
-                    loading="lazy"
-                    className="aspect-[4/5] w-full object-cover"
-                  />
+                  <div className="aspect-[4/5] overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      data-parallax
+                      src={s.img}
+                      alt={`${s.name} interior scheme`}
+                      loading="lazy"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
                   <figcaption className="mt-3">
                     <span className="font-display text-lg text-limestone">{s.name}</span>
                     <span className="label-caps ml-3 text-mushroom">{s.note}</span>
@@ -222,8 +240,8 @@ export default function Home() {
       </section>
 
       {/* ── Materials ────────────────────────────────────────────────────── */}
-      <section id="materials" className="px-[var(--section-px)] py-28">
-        <div className="mx-auto max-w-5xl">
+      <section id="materials" className="px-[var(--container-inset)] py-28">
+        <div className="w-full">
           <div data-reveal className="max-w-xl">
             <Eyebrow>Material truth</Eyebrow>
             <h2 className="font-display text-limestone" style={{ fontSize: "var(--text-h1)" }}>
@@ -247,24 +265,60 @@ export default function Home() {
       </section>
 
       {/* ── Enquire ──────────────────────────────────────────────────────── */}
-      <section id="enquire" className="flex flex-col items-center px-[var(--section-px)] py-28 text-center">
-        <div data-reveal className="w-full max-w-xl border border-limestone/10 bg-espresso/85 p-8 sm:p-12">
-          <Eyebrow>Enquire</Eyebrow>
-          <h2 className="font-display text-limestone" style={{ fontSize: "var(--text-h1)" }}>
-            Take the high ground.
-          </h2>
-          <p className="mx-auto mt-6 max-w-md leading-relaxed text-limestone/70" style={{ fontSize: "var(--text-lead)" }}>
-            A limited clifftop collection above Uluwatu. Request availability,
-            pricing and the full RAYA package.
-          </p>
-          <div className="mt-10">
+      <section id="enquire" className="px-[var(--container-inset)] py-28">
+        <div className="grid w-full gap-14 lg:grid-cols-[2fr_3fr] lg:gap-20">
+          <div data-reveal>
+            <Eyebrow>Enquire</Eyebrow>
+            <h2 className="font-display text-limestone" style={{ fontSize: "var(--text-h1)" }}>
+              Take the high ground.
+            </h2>
+            <p className="mt-6 max-w-md leading-relaxed text-limestone/70" style={{ fontSize: "var(--text-lead)" }}>
+              A limited clifftop collection above Uluwatu. Request availability,
+              pricing and the full RAYA package — we reply within one working
+              day.
+            </p>
+
+            <dl className="mt-12 space-y-6 border-t border-limestone/10 pt-10">
+              <div>
+                <dt className="label-caps text-mushroom">Email</dt>
+                <dd className="mt-1">
+                  <a href="mailto:hello@raya.bali" className="font-display text-2xl text-limestone transition-colors hover:text-clay">
+                    hello@raya.bali
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt className="label-caps text-mushroom">The site</dt>
+                <dd className="mt-1 text-limestone/70">
+                  Bingin clifftop · Uluwatu · Bali
+                </dd>
+              </div>
+              <div>
+                <dt className="label-caps text-mushroom">Developer</dt>
+                <dd className="mt-1 text-limestone/70">
+                  A Royal Bali Group project · 25-year leasehold · fully managed
+                  rental programme
+                </dd>
+              </div>
+            </dl>
+
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/raya-monogram-reversed.svg"
+              alt=""
+              aria-hidden
+              className="mt-12 h-16 w-auto opacity-25"
+            />
+          </div>
+
+          <div data-reveal className="border border-limestone/10 bg-espresso/85 p-8 sm:p-12">
             <InquiryForm />
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-limestone/10 px-[var(--section-px)] py-10">
-        <div className="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-4 text-limestone/40 sm:flex-row">
+      <footer className="border-t border-limestone/10 px-[var(--container-inset)] py-10">
+        <div className="flex flex-col items-center justify-between gap-4 text-limestone/40 sm:flex-row">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/brand/raya-wordmark.svg" alt="RAYA" className="h-5 opacity-60 invert" />
           <span className="label-caps">Bingin · Uluwatu · Bali</span>
