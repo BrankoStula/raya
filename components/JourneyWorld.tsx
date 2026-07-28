@@ -16,7 +16,7 @@ const SECTIONS = [
     clip: "/journey/leg_1.mp4",
     clipMobile: "/journey/leg_1-lite.mp4",
     accent: "#b8a28e",
-    scroll: 1.6,
+    scroll: 1.8, // 13.5s: aerial + generated descent bridging into the villa facade
     linger: 0.4,
     eyebrow: "Bingin · Uluwatu · Bali",
     title: "Above the surf. Above the crowd.",
@@ -30,7 +30,7 @@ const SECTIONS = [
     clip: "/journey/leg_2.mp4",
     clipMobile: "/journey/leg_2-lite.mp4",
     accent: "#96806c",
-    scroll: 1.9, // 16s assembled clip (street → villa door → pool) needs the dwell
+    scroll: 1.35, // 8s clip: straight to the villa door → pool
     linger: 0.35,
     eyebrow: "The pool",
     title: "A private line of water.",
@@ -91,7 +91,7 @@ const SECTIONS = [
     clip: "/journey/leg_7.mp4",
     clipMobile: "/journey/leg_7-lite.mp4",
     accent: "#eae3d7",
-    scroll: 3.0, // 35s finale: reverse return → spiral continues up → terrace + dwell
+    scroll: 2.4, // 23s finale: return → turn → climb → lounge-view terrace dwell
     linger: 0.55,
     eyebrow: "The rooftop",
     title: "Take the high ground.",
