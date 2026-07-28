@@ -91,7 +91,7 @@ const SECTIONS = [
     clip: "/journey/leg_7.mp4",
     clipMobile: "/journey/leg_7-lite.mp4",
     accent: "#eae3d7",
-    scroll: 2.9, // 32s finale: bath → bedroom → stairs → glazed door → terrace + dwell
+    scroll: 3.0, // 35s finale: reverse return → spiral continues up → terrace + dwell
     linger: 0.55,
     eyebrow: "The rooftop",
     title: "Take the high ground.",
