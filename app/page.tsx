@@ -1,6 +1,19 @@
 // app/page.tsx
 import JourneyWorld from "@/components/JourneyWorld";
 import InquiryForm from "@/components/sections/InquiryForm";
+import MapboxMap, { type POI } from "@/components/ui/MapboxMap";
+
+// Approximate POI coordinates around the Bingin clifftop (site pin is exact).
+const POIS: POI[] = [
+  { label: "RAYA", longitude: 115.1223944, latitude: -8.8100574, type: "project" },
+  { label: "Bingin Beach", longitude: 115.111, latitude: -8.8085, type: "surf" },
+  { label: "Padang Padang", longitude: 115.1036, latitude: -8.8107, type: "surf" },
+  { label: "Bambu Fitness", longitude: 115.118, latitude: -8.8058, type: "gym" },
+  { label: "Uluwatu Temple", longitude: 115.0849, latitude: -8.8291, type: "temple" },
+  { label: "Dreamland Beach", longitude: 115.1174, latitude: -8.7962, type: "beach" },
+  { label: "Melasti Beach", longitude: 115.1605, latitude: -8.848, type: "beach" },
+  { label: "Ngurah Rai Airport", longitude: 115.1672, latitude: -8.7482, type: "airport" },
+];
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -50,6 +63,40 @@ export default function Home() {
       {/* ── The villa journey — one continuous AI camera flight, scrubbed by
              scroll, anchored on the real DEV 10 renders ─────────────────────── */}
       <JourneyWorld />
+
+      {/* ── The Bukit — map first after the journey; pulled up over the world's
+             fade-out band so there's no dead scroll (Ignite-style handoff) ──── */}
+      <section
+        id="bukit"
+        className="relative z-10 -mt-[38vh] bg-espresso px-[var(--section-px)] pb-28 pt-24"
+      >
+        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[2fr_3fr]">
+          <div data-reveal>
+            <Eyebrow>The Bukit</Eyebrow>
+            <h2 className="font-display text-limestone" style={{ fontSize: "var(--text-h1)" }}>
+              Everything, within reach.
+            </h2>
+            <ul className="mt-8 grid grid-cols-1 gap-x-10 gap-y-4 text-limestone/70">
+              {[
+                ["Bingin Beach", "walk"],
+                ["Bambu Fitness", "walk"],
+                ["Padang Padang", "5 min"],
+                ["Melasti & Dreamland", "10 min"],
+                ["Uluwatu Temple", "12 min"],
+                ["Ngurah Rai Airport", "45 min"],
+              ].map(([place, dist]) => (
+                <li key={place} className="flex items-baseline justify-between border-b border-limestone/15 pb-2">
+                  <span>{place}</span>
+                  <span className="label-caps text-clay">{dist}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div data-reveal className="h-[420px] overflow-hidden border border-limestone/10 lg:h-[520px]">
+            <MapboxMap pois={POIS} />
+          </div>
+        </div>
+      </section>
 
       {/* ── The collection ────────────────────────────────────────────────── */}
       <section id="collection" className="px-[var(--section-px)] py-28">
@@ -195,37 +242,6 @@ export default function Home() {
                 <figcaption className="label-caps mt-3 text-mushroom">{m.name}</figcaption>
               </figure>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── The Bukit ────────────────────────────────────────────────────── */}
-      <section id="bukit" className="px-[var(--section-px)] py-28">
-        <div className="mx-auto grid max-w-5xl items-center gap-12 md:grid-cols-2">
-          <div data-reveal>
-            <Eyebrow>The Bukit</Eyebrow>
-            <h2 className="font-display text-limestone" style={{ fontSize: "var(--text-h1)" }}>
-              Everything, within reach.
-            </h2>
-            <ul className="mt-8 grid grid-cols-1 gap-x-10 gap-y-4 text-limestone/70">
-              {[
-                ["Bingin Beach", "walk"],
-                ["Bambu Fitness", "walk"],
-                ["Padang Padang", "5 min"],
-                ["Melasti & Dreamland", "10 min"],
-                ["Uluwatu Temple", "12 min"],
-                ["Ngurah Rai Airport", "45 min"],
-              ].map(([place, dist]) => (
-                <li key={place} className="flex items-baseline justify-between border-b border-limestone/15 pb-2">
-                  <span>{place}</span>
-                  <span className="label-caps text-clay">{dist}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div data-reveal>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/bukit/pecatu-map.jpg" alt="Pecatu — the Bukit peninsula, site context" loading="lazy" className="w-full object-cover" />
           </div>
         </div>
       </section>

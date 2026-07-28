@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.join(__dirname),
   },
+  transpilePackages: ["mapbox-gl"],
   images: {
     qualities: [50, 75, 90, 100],
     remotePatterns: [
