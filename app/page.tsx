@@ -9,6 +9,8 @@ const POIS: POI[] = [
   { label: "Bingin Beach", longitude: 115.111, latitude: -8.8085, type: "surf" },
   { label: "Padang Padang", longitude: 115.1036, latitude: -8.8107, type: "surf" },
   { label: "Bambu Fitness", longitude: 115.118, latitude: -8.8058, type: "gym" },
+  { label: "New Kuta Golf", longitude: 115.1286, latitude: -8.8062, type: "beach" },
+  { label: "Alchemy Yoga", longitude: 115.1155, latitude: -8.8175, type: "gym" },
   { label: "Uluwatu Temple", longitude: 115.0849, latitude: -8.8291, type: "temple" },
   { label: "Dreamland Beach", longitude: 115.1174, latitude: -8.7962, type: "beach" },
   { label: "Melasti Beach", longitude: 115.1605, latitude: -8.848, type: "beach" },
@@ -24,24 +26,25 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Real DEV 10 mix (from the 100 SERIES layout plans): ten villas across four
-// layouts, plus an apartment house of five residences. Detail plans on request.
+// Real mix per the RAYA brochure: eighteen residences — ten two-bed pool-villas
+// in five mirrored pairs, eight apartments over three storeys behind a staffed
+// lobby. Prices as published; delivered furnished.
 const RESIDENCES = [
   {
     id: "villas",
     name: "The Villas",
     img: "/renders/villa-bedroom.jpg",
     imgAlt: "Villa bedroom — timber headboard wall, soft morning light",
-    lead: "Ten private pool-villas across four layouts, each with its own walled garden, plunge pool and roof terrace.",
-    facts: ["10 villas", "4 layouts", "Private pools"],
+    lead: "Ten two-bedroom pool-villas in five mirrored pairs — 204 m² over three levels, each with its own walled garden, private pool and roof terrace.",
+    facts: ["2 bedrooms · 3 levels", "Private pools", "US$499,900 · furnished"],
   },
   {
     id: "apartments",
     name: "The Apartments",
     img: "/renders/apt-living.jpg",
-    imgAlt: "Apartment living room in warm limewash and timber",
-    lead: "An apartment house of five managed residences — corner and mid layouts over three floors, run as a hands-off asset.",
-    facts: ["5 residences", "Corner & mid layouts", "Fully managed"],
+    imgAlt: "Apartment kitchen and living opening to the pool courtyard",
+    lead: "Eight one-bedroom apartments over three storeys at the road frontage, behind a 58 m² staffed lobby — ground-floor plans with private pool courtyards.",
+    facts: ["8 residences", "Staffed lobby", "From US$169,900 · furnished"],
   },
 ];
 
@@ -79,12 +82,14 @@ export default function Home() {
             </h2>
             <ul className="mt-8 grid grid-cols-1 gap-x-10 gap-y-4 text-limestone/70">
               {[
-                ["Bingin Beach", "walk"],
-                ["Bambu Fitness", "walk"],
-                ["Padang Padang", "5 min"],
-                ["Melasti & Dreamland", "10 min"],
-                ["Uluwatu Temple", "12 min"],
-                ["Ngurah Rai Airport", "45 min"],
+                ["Bambu Fitness", "0.93 km · 2–3 min"],
+                ["New Kuta Golf", "0.71 km · 3–6 min"],
+                ["Alchemy Yoga", "1.13 km · 2–3 min"],
+                ["Bingin Beach", "1.14 km · 8–12 min"],
+                ["Dreamland", "1.28 km · 5–10 min"],
+                ["Padang Padang", "2.07 km · 8–12 min"],
+                ["Uluwatu Temple", "12–18 min"],
+                ["DPS Airport", "40–50 min"],
               ].map(([place, dist]) => (
                 <li key={place} className="flex items-baseline justify-between border-b border-limestone/15 pb-2">
                   <span>{place}</span>
@@ -128,7 +133,7 @@ export default function Home() {
               <img
                 data-parallax
                 src="/renders/facade-front.jpg"
-                alt="The apartment house at dusk — lit windows behind the planting"
+                alt="The apartment house — front elevation on Jalan Kapur"
                 loading="lazy"
                 className="h-full w-full object-cover"
               />
@@ -137,7 +142,7 @@ export default function Home() {
               <img
                 data-parallax
                 src="/renders/facade-left.jpg"
-                alt="The villa row — ivy walls and double-height glazing"
+                alt="The collection from the corner — apartments and villa row"
                 loading="lazy"
                 className="h-full w-full object-cover"
               />
@@ -156,8 +161,9 @@ export default function Home() {
               Two ways to hold the high ground.
             </h2>
             <p className="mt-6 leading-relaxed text-limestone/70" style={{ fontSize: "var(--text-lead)" }}>
-              Ten pool-villas and an apartment house of five managed residences.
-              Layout plans and pricing on request.
+              One arrival, eighteen residences — ten pool-villas and eight
+              managed apartments. Delivered furnished; visa, PT PMA and land
+              tax included.
             </p>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-2">
@@ -273,10 +279,19 @@ export default function Home() {
               Take the high ground.
             </h2>
             <p className="mt-6 max-w-md leading-relaxed text-limestone/70" style={{ fontSize: "var(--text-lead)" }}>
-              A limited clifftop collection above Uluwatu. Request availability,
-              pricing and the full RAYA package — we reply within one working
-              day.
+              Eighteen residences on the high ground of Uluwatu. Request
+              availability, pricing and the full RAYA package — we reply within
+              one working day.
             </p>
+
+            <a
+              href="/brochure/RAYA-Brochure.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="label-caps mt-8 inline-block border border-limestone/40 px-8 py-4 text-limestone transition-colors hover:border-limestone hover:bg-limestone hover:text-espresso"
+            >
+              Download the brochure
+            </a>
 
             <dl className="mt-12 space-y-6 border-t border-limestone/10 pt-10">
               <div>
@@ -290,14 +305,20 @@ export default function Home() {
               <div>
                 <dt className="label-caps text-mushroom">The site</dt>
                 <dd className="mt-1 text-limestone/70">
-                  Bingin clifftop · Uluwatu · Bali
+                  Jalan Kapur · Pecatu plateau · Uluwatu, Bali
                 </dd>
               </div>
               <div>
                 <dt className="label-caps text-mushroom">Developer</dt>
                 <dd className="mt-1 text-limestone/70">
-                  A Royal Bali Group project · 25-year leasehold · fully managed
-                  rental programme
+                  Royal Bali Group · Royal Bali Services in-house rental
+                  management · single 50-year term registered at BPN
+                </dd>
+              </div>
+              <div>
+                <dt className="label-caps text-mushroom">Warranty</dt>
+                <dd className="mt-1 text-limestone/70">
+                  10 years structural · 5 years MEP · 2 years waterproofing
                 </dd>
               </div>
             </dl>

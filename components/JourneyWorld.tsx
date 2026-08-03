@@ -22,7 +22,7 @@ const SECTIONS = [
     eyebrow: "Bingin · Uluwatu · Bali",
     title: "Above the surf. Above the crowd.",
     body: "A villa & managed pool-apartment collection on the high ground of Uluwatu — ten villas and an apartment house in the palms.",
-    tags: ["25-yr leasehold", "Fully managed"],
+    tags: ["50-yr leasehold", "Fully managed"],
   },
   {
     id: "pool",
