@@ -37,11 +37,22 @@ export default function Nav() {
       <nav className="flex items-center justify-between px-[var(--container-inset)] py-5">
         <a
           href="#hero"
-          className="font-display text-limestone text-xl"
-          style={{ letterSpacing: "0.3em" }}
+          className="flex items-center gap-3"
           onClick={() => setOpen(false)}
         >
-          RAYA
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/brand/raya-monogram-reversed.svg"
+            alt=""
+            aria-hidden
+            className="h-8 w-auto"
+          />
+          <span
+            className="font-display text-limestone text-xl"
+            style={{ letterSpacing: "0.3em" }}
+          >
+            RAYA
+          </span>
         </a>
 
         {/* desktop links */}

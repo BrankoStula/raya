@@ -14,6 +14,13 @@ const POIS: POI[] = [
   { label: "Uluwatu Temple", longitude: 115.0849, latitude: -8.8291, type: "temple" },
   { label: "Dreamland Beach", longitude: 115.1174, latitude: -8.7962, type: "beach" },
   { label: "Melasti Beach", longitude: 115.1605, latitude: -8.848, type: "beach" },
+  { label: "Suluban · Single Fin", longitude: 115.0885, latitude: -8.8153, type: "surf" },
+  { label: "El Kabron", longitude: 115.1053, latitude: -8.8079, type: "restaurant" },
+  { label: "The Cashew Tree", longitude: 115.112, latitude: -8.8043, type: "restaurant" },
+  { label: "Drifter Cafe", longitude: 115.101, latitude: -8.8123, type: "restaurant" },
+  { label: "Six Senses Uluwatu", longitude: 115.1122, latitude: -8.8478, type: "resort" },
+  { label: "Bvlgari Resort", longitude: 115.1219, latitude: -8.8472, type: "resort" },
+  { label: "Alila Villas Uluwatu", longitude: 115.1621, latitude: -8.8492, type: "resort" },
   { label: "Ngurah Rai Airport", longitude: 115.1672, latitude: -8.7482, type: "airport" },
 ];
 
@@ -48,10 +55,12 @@ const RESIDENCES = [
   },
 ];
 
+// Two delivered interior schemes — light and dark — across villa and apartment.
 const SCHEMES = [
-  { img: "/renders/scheme-light.jpg", name: "Light", note: "pale oak · bone limewash" },
-  { img: "/renders/scheme-mid.jpg", name: "Mid", note: "teak · warm mineral" },
-  { img: "/renders/scheme-dark.jpg", name: "Dark", note: "walnut · espresso" },
+  { img: "/renders/scheme-villa-light.jpg", name: "Villa · Light", note: "pale oak · bone limewash" },
+  { img: "/renders/scheme-villa-dark.jpg", name: "Villa · Dark", note: "walnut · espresso" },
+  { img: "/renders/scheme-apt-light.jpg", name: "Apartment · Light", note: "pale oak · bone limewash" },
+  { img: "/renders/scheme-apt-dark.jpg", name: "Apartment · Dark", note: "walnut · espresso" },
 ];
 
 const MATERIALS = [
@@ -78,17 +87,25 @@ export default function Home() {
           <div data-reveal className="pl-[var(--container-inset)] pr-[var(--container-inset)] lg:pr-0">
             <Eyebrow>The Bukit</Eyebrow>
             <h2 className="font-display text-limestone" style={{ fontSize: "var(--text-h1)" }}>
-              Everything, within reach.
+              Where it sits is the asset.
             </h2>
+            {/* location copy + figures verbatim from the brochure, section 01 */}
+            <p className="mt-6 leading-relaxed text-limestone/70">
+              People come to the Bukit for the surf. It is not the reason they
+              stay. The reason is a day that holds together — a break below the
+              plateau, and a gym and a yoga studio inside three minutes of the
+              gate. The house is the second half of it.
+            </p>
             <ul className="mt-8 grid grid-cols-1 gap-x-10 gap-y-4 text-limestone/70">
               {[
-                ["Bambu Fitness", "0.93 km · 2–3 min"],
-                ["New Kuta Golf", "0.71 km · 3–6 min"],
+                ["Bambu Fitness", "0.93 km · 2 min"],
                 ["Alchemy Yoga", "1.13 km · 2–3 min"],
-                ["Bingin Beach", "1.14 km · 8–12 min"],
-                ["Dreamland", "1.28 km · 5–10 min"],
-                ["Padang Padang", "2.07 km · 8–12 min"],
-                ["Uluwatu Temple", "12–18 min"],
+                ["New Kuta Golf", "0.71 km · 3–6 min"],
+                ["Bingin", "1.14 km"],
+                ["Dreamland", "1.28 km"],
+                ["Padang Padang", "2.07 km"],
+                ["Suluban · Single Fin", "3.79 km"],
+                ["Uluwatu Temple", "12 min"],
                 ["DPS Airport", "40–50 min"],
               ].map(([place, dist]) => (
                 <li key={place} className="flex items-baseline justify-between border-b border-limestone/15 pb-2">
@@ -97,6 +114,12 @@ export default function Home() {
                 </li>
               ))}
             </ul>
+            <p className="mt-8 text-limestone/60">
+              <span className="label-caps text-mushroom">The neighbours</span>
+              <br />
+              Six Senses. Bvlgari. Alila. Three cliff-edge operators inside the
+              same corridor — they set the ceiling on this stretch of the Bukit.
+            </p>
           </div>
           <div data-reveal className="h-[480px] overflow-hidden border-y border-l border-limestone/10 lg:h-[640px]">
             <MapboxMap pois={POIS} />
@@ -218,10 +241,40 @@ export default function Home() {
             </div>
           </div>
 
-          {/* three interior schemes, straight from the DEV 10 render set */}
+          {/* the apartments in photos — corner and mid units, full render set */}
           <div data-reveal className="mt-16">
-            <p className="label-caps mb-6 text-mushroom">Three interior schemes</p>
-            <div className="grid grid-cols-3 gap-4">
+            <p className="label-caps mb-6 text-mushroom">Inside the apartments</p>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+              {[
+                { img: "/renders/apt-entrance.jpg", alt: "Apartment entrance — plunge pool at the door" },
+                { img: "/renders/apt-pool.jpg", alt: "Ground-floor pool courtyard between limewash walls" },
+                { img: "/renders/apt-living2.jpg", alt: "Corner apartment living room with full-height glazing" },
+                { img: "/renders/apt-kitchen2.jpg", alt: "Apartment kitchen island under woven pendants" },
+                { img: "/renders/apt-bed.jpg", alt: "Apartment bedroom — timber slat headboard, garden view" },
+                { img: "/renders/apt-bath.jpg", alt: "Apartment bathroom — stone vanity and rain shower" },
+              ].map((g) => (
+                <div key={g.img} className="aspect-[4/3] overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    data-parallax
+                    src={g.img}
+                    alt={g.alt}
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* the two interior schemes, same rooms in both temperatures */}
+          <div data-reveal className="mt-16">
+            <p className="label-caps mb-3 text-mushroom">Two interior schemes</p>
+            <p className="mb-6 max-w-xl text-limestone/70">
+              Every residence is delivered furnished in one of two schemes —
+              light or dark. The same rooms, two temperatures.
+            </p>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
               {SCHEMES.map((s) => (
                 <figure key={s.name}>
                   <div className="aspect-[4/5] overflow-hidden">

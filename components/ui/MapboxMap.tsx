@@ -3,10 +3,18 @@
 
 import { useCallback, useState } from "react";
 import Map, { Marker, NavigationControl, Source, Layer } from "react-map-gl/mapbox";
-import { MapPin, Waves, Dumbbell, Landmark, Plane, Palmtree } from "lucide-react";
+import { MapPin, Waves, Dumbbell, Landmark, Plane, Palmtree, UtensilsCrossed, Hotel } from "lucide-react";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-export type POIType = "project" | "surf" | "gym" | "temple" | "beach" | "airport";
+export type POIType =
+  | "project"
+  | "surf"
+  | "gym"
+  | "temple"
+  | "beach"
+  | "airport"
+  | "restaurant"
+  | "resort";
 
 export type POI = {
   label: string;
@@ -27,12 +35,14 @@ type MarkerStyle = {
 
 // Mineral Earth marker language on the dark map — limestone chips, clay RAYA pin.
 const MARKER: Record<POIType, MarkerStyle> = {
-  project: { Icon: MapPin,   bg: "#b8a28e", color: "#3b2e24", iconSize: 16, diameter: "2.75rem" },
-  surf:    { Icon: Waves,    bg: "rgba(234,227,215,0.92)", color: "#3b2e24", iconSize: 12, diameter: "1.75rem" },
-  gym:     { Icon: Dumbbell, bg: "rgba(234,227,215,0.92)", color: "#3b2e24", iconSize: 12, diameter: "1.75rem" },
-  temple:  { Icon: Landmark, bg: "rgba(234,227,215,0.92)", color: "#3b2e24", iconSize: 12, diameter: "1.75rem" },
-  beach:   { Icon: Palmtree, bg: "rgba(234,227,215,0.92)", color: "#3b2e24", iconSize: 12, diameter: "1.75rem" },
-  airport: { Icon: Plane,    bg: "rgba(234,227,215,0.92)", color: "#3b2e24", iconSize: 14, diameter: "2.25rem" },
+  project: { Icon: MapPin,   bg: "#b8a28e", color: "#46382b", iconSize: 16, diameter: "2.75rem" },
+  surf:    { Icon: Waves,    bg: "rgba(234,227,215,0.92)", color: "#46382b", iconSize: 12, diameter: "1.75rem" },
+  gym:     { Icon: Dumbbell, bg: "rgba(234,227,215,0.92)", color: "#46382b", iconSize: 12, diameter: "1.75rem" },
+  temple:  { Icon: Landmark, bg: "rgba(234,227,215,0.92)", color: "#46382b", iconSize: 12, diameter: "1.75rem" },
+  beach:   { Icon: Palmtree, bg: "rgba(234,227,215,0.92)", color: "#46382b", iconSize: 12, diameter: "1.75rem" },
+  airport: { Icon: Plane,    bg: "rgba(234,227,215,0.92)", color: "#46382b", iconSize: 14, diameter: "2.25rem" },
+  restaurant: { Icon: UtensilsCrossed, bg: "rgba(234,227,215,0.92)", color: "#46382b", iconSize: 12, diameter: "1.75rem" },
+  resort:  { Icon: Hotel,    bg: "rgba(234,227,215,0.92)", color: "#46382b", iconSize: 12, diameter: "1.75rem" },
 };
 
 type Props = {
@@ -161,7 +171,7 @@ export default function MapboxMap({ pois }: Props) {
                         : "shadow-sm ring-1 ring-clay/25",
                   ].join(" ")}
                 >
-                  <Icon size={s.iconSize} color={active ? "#3b2e24" : s.color} strokeWidth={1.8} />
+                  <Icon size={s.iconSize} color={active ? "#46382b" : s.color} strokeWidth={1.8} />
                 </div>
                 {(poi.type === "project" || active) && (
                   <span
