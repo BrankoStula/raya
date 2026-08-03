@@ -4,6 +4,7 @@
 import { useCallback, useState } from "react";
 import Map, { Marker, NavigationControl, Source, Layer } from "react-map-gl/mapbox";
 import { MapPin, Waves, Dumbbell, Landmark, Plane, Palmtree, UtensilsCrossed, Hotel } from "lucide-react";
+import { MAPBOX_PUBLIC_TOKEN } from "@/lib/config/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 export type POIType =
@@ -23,7 +24,7 @@ export type POI = {
   type: POIType;
 };
 
-const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN as string;
+const MAPBOX_TOKEN = MAPBOX_PUBLIC_TOKEN;
 
 type MarkerStyle = {
   Icon: typeof MapPin;
