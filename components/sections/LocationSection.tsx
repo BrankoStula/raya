@@ -28,7 +28,7 @@ const POIS: POI[] = [
 ];
 
 // One line per place; real photographs where a good freely-licensed one exists.
-const POI_META: Record<string, { desc: string; img?: string; credit?: string }> = {
+const POI_META: Record<string, { desc: string; img?: string; credit?: string; fit?: "contain" }> = {
   "Bambu Fitness": { desc: "Thirteen thousand square feet. CrossFit, ice baths, a panoramic sauna." },
   "Alchemy Yoga": { desc: "Classes daily, on the five elements. Ice bath, sauna and cafe." },
   "New Kuta Golf": { desc: "The links above Dreamland, tee times all week." },
@@ -52,7 +52,12 @@ const POI_META: Record<string, { desc: string; img?: string; credit?: string }> 
     img: "/pois/suluban.jpg",
     credit: "photo tigoretagore · CC BY-SA 3.0",
   },
-  "El Kabron": { desc: "Spanish cliff club: paella, cava, a sunset pool." },
+  "El Kabron": {
+    desc: "Spanish cliff club: paella, cava, a sunset pool.",
+    img: "/pois/el-kabron.jpg",
+    credit: "photo TidalPush · CC BY-ND (unmodified)",
+    fit: "contain",
+  },
   "The Cashew Tree": { desc: "Garden kitchen in the Bingin lanes." },
   "Drifter Cafe": { desc: "Surf shop, gallery and cafe on the Padang road." },
   "Uluwatu Temple": {
@@ -60,14 +65,26 @@ const POI_META: Record<string, { desc: string; img?: string; credit?: string }> 
     img: "/pois/uluwatu-temple.jpg",
     credit: "photo Jenn Evelyn-Ann · CC0",
   },
-  "Six Senses Uluwatu": { desc: "Cliff-edge resort on the Uluwatu headland." },
-  "Bvlgari Resort": { desc: "The Italian house on the southern cliff." },
+  "Six Senses Uluwatu": {
+    desc: "Cliff-edge resort on the Uluwatu headland.",
+    img: "/pois/six-senses.jpg",
+    credit: "photo u07ch · CC BY",
+  },
+  "Bvlgari Resort": {
+    desc: "The Italian house on the southern cliff.",
+    img: "/pois/bvlgari.jpg",
+    credit: "photo Forgemind ArchiMedia · CC BY",
+  },
   "Alila Villas Uluwatu": {
     desc: "Cliff-edge modernism above the Melasti stretch.",
     img: "/pois/melasti.jpg",
     credit: "photo Bayu Stiawan · CC BY-SA 4.0",
   },
-  "Ngurah Rai Airport": { desc: "Door to door in under an hour." },
+  "Ngurah Rai Airport": {
+    desc: "Door to door in under an hour.",
+    img: "/pois/airport.jpg",
+    credit: "photo JuneAugust · CC BY-SA 4.0",
+  },
 };
 
 // Credits for photographs used as chapter defaults.
@@ -191,7 +208,7 @@ export default function LocationSection() {
   // selecting a place with a photo pulls its slide forward. All derived — no
   // state resets needed on chapter change.
   const slides = useMemo(() => {
-    const list: { img: string; caption: string; credit: string | null }[] = [
+    const list: { img: string; caption: string; credit: string | null; fit?: "contain" }[] = [
       {
         img: active.img,
         caption: active.imgAlt,
@@ -201,7 +218,7 @@ export default function LocationSection() {
     active.items.forEach(([label]) => {
       const m = POI_META[label];
       if (m?.img && m.img !== active.img)
-        list.push({ img: m.img, caption: `${label} — ${m.desc}`, credit: m.credit ?? null });
+        list.push({ img: m.img, caption: `${label} — ${m.desc}`, credit: m.credit ?? null, fit: m.fit });
     });
     return list;
   }, [active]);
@@ -324,14 +341,14 @@ export default function LocationSection() {
                   transitionTimingFunction: "var(--ease-cine)",
                 }}
               >
-                {slides.map((s) => (
+                {slides.map((s2) => (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
-                    key={s.img}
-                    src={s.img}
-                    alt={s.caption}
+                    key={s2.img}
+                    src={s2.img}
+                    alt={s2.caption}
                     loading="lazy"
-                    className="h-full w-full shrink-0 object-cover"
+                    className={`h-full w-full shrink-0 ${s2.fit === "contain" ? "bg-espresso/90 object-contain" : "object-cover"}`}
                   />
                 ))}
               </div>

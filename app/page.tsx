@@ -4,6 +4,7 @@ import CollectionShowcase from "@/components/sections/CollectionShowcase";
 import InquiryForm from "@/components/sections/InquiryForm";
 import LocationSection from "@/components/sections/LocationSection";
 import PlanEmbed from "@/components/sections/PlanEmbed";
+import ResidencesShowcase from "@/components/sections/ResidencesShowcase";
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -13,28 +14,6 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
     </p>
   );
 }
-
-// Real mix per the RAYA brochure: eighteen residences — ten two-bed pool-villas
-// in five mirrored pairs, eight apartments over three storeys behind a staffed
-// lobby. Prices as published; delivered furnished.
-const RESIDENCES = [
-  {
-    id: "villas",
-    name: "The Villas",
-    img: "/renders/villa-bedroom.jpg",
-    imgAlt: "Villa bedroom — timber headboard wall, soft morning light",
-    lead: "Ten two-bedroom pool villas in five mirrored pairs. 204 m² over three levels, each with a walled garden, a private pool and a roof terrace.",
-    facts: ["2 bedrooms · 3 levels", "Private pools", "US$499,900 · furnished"],
-  },
-  {
-    id: "apartments",
-    name: "The Apartments",
-    img: "/renders/apt-living.jpg",
-    imgAlt: "Apartment kitchen and living opening to the pool courtyard",
-    lead: "Eight one-bedroom apartments over three storeys at the road frontage, behind a staffed lobby. Ground-floor plans come with a private pool courtyard.",
-    facts: ["8 residences", "Staffed lobby", "From US$169,900 · furnished"],
-  },
-];
 
 // Two delivered interior schemes — light and dark — across villa and apartment.
 const SCHEMES = [
@@ -140,51 +119,7 @@ export default function Home() {
       {/* ── The residences ───────────────────────────────────────────────── */}
       <section id="units" className="bg-bone px-[var(--container-inset)] py-28">
         <div className="w-full">
-          <div className="max-w-xl">
-            <Eyebrow>03 · The residences</Eyebrow>
-            <h2
-              data-write
-              className="font-display text-espresso"
-              style={{ fontSize: "var(--text-h1)" }}
-            >
-              Two ways to hold the high ground.
-            </h2>
-            <p data-reveal className="mt-6 leading-relaxed text-walnut" style={{ fontSize: "var(--text-lead)" }}>
-              One arrival, eighteen residences: ten pool villas and eight
-              managed apartments, delivered furnished. Visa, PT PMA and land
-              tax are part of the price.
-            </p>
-          </div>
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
-            {RESIDENCES.map((r, i) => (
-              <figure
-                key={r.id}
-                data-slide={i === 0 ? "left" : "right"}
-                className="border border-espresso/10 bg-limestone/70"
-              >
-                <div className="aspect-[4/3] overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    data-parallax
-                    data-lightbox
-                    src={r.img}
-                    alt={r.imgAlt}
-                    loading="lazy"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                <figcaption className="p-6">
-                  <span className="font-display text-2xl text-espresso">{r.name}</span>
-                  <p className="mt-3 leading-relaxed text-walnut">{r.lead}</p>
-                  <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
-                    {r.facts.map((f) => (
-                      <span key={f} className="label-caps text-mushroom">{f}</span>
-                    ))}
-                  </div>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+          <ResidencesShowcase />
 
           {/* the villa in photos — full render set from the design team */}
           <Gallery label="Inside the villa" items={VILLA_GALLERY} popIndex={2} />
@@ -289,74 +224,83 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Enquire ──────────────────────────────────────────────────────── */}
+      {/* ── Enquire — one composed card: details left, form right, monogram
+             watermark ─────────────────────────────────────────────────────── */}
       <section id="enquire" className="relative overflow-hidden bg-bone px-[var(--container-inset)] py-28">
-        <div className="relative grid w-full gap-14 lg:grid-cols-[2fr_3fr] lg:gap-20">
-          <div>
-            <Eyebrow>06 · Enquire</Eyebrow>
-            <h2
-              data-write
-              className="font-display text-espresso"
-              style={{ fontSize: "var(--text-h1)" }}
-            >
-              Take the high ground.
-            </h2>
-            <p data-reveal className="mt-6 max-w-md leading-relaxed text-walnut" style={{ fontSize: "var(--text-lead)" }}>
-              Ask for availability, pricing and the full RAYA package. We reply
-              within one working day.
-            </p>
+        <div className="max-w-xl">
+          <Eyebrow>06 · Enquire</Eyebrow>
+          <h2
+            data-write
+            className="font-display text-espresso"
+            style={{ fontSize: "var(--text-h1)" }}
+          >
+            Take the high ground.
+          </h2>
+          <p data-reveal className="mt-6 max-w-md leading-relaxed text-walnut" style={{ fontSize: "var(--text-lead)" }}>
+            Ask for availability, pricing and the full RAYA package. We reply
+            within one working day.
+          </p>
+        </div>
 
-            <a
-              data-reveal
-              href="/brochure/RAYA-Brochure.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="label-caps mt-8 inline-block border border-espresso/40 px-8 py-4 text-espresso transition-colors hover:border-espresso hover:bg-espresso hover:text-bone"
-            >
-              Download the brochure
-            </a>
+        <div
+          data-reveal
+          className="relative mt-14 overflow-hidden border border-espresso/10 bg-white/45 shadow-sm"
+        >
+          {/* monogram watermark */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/brand/raya-monogram.svg"
+            alt=""
+            aria-hidden
+            className="pointer-events-none absolute -bottom-16 -right-10 h-[22rem] w-auto select-none opacity-[0.06]"
+          />
 
-            <dl data-reveal className="mt-12 space-y-6 border-t border-espresso/10 pt-10">
-              <div>
-                <dt className="label-caps text-mushroom">Email</dt>
-                <dd className="mt-1">
-                  <a href="mailto:hello@raya.bali" className="font-display text-2xl text-espresso transition-colors hover:text-walnut">
-                    hello@raya.bali
-                  </a>
-                </dd>
-              </div>
-              <div>
-                <dt className="label-caps text-mushroom">The site</dt>
-                <dd className="mt-1 text-walnut">
-                  Jalan Kapur · Pecatu plateau · Uluwatu, Bali
-                </dd>
-              </div>
-              <div>
-                <dt className="label-caps text-mushroom">Developer</dt>
-                <dd className="mt-1 text-walnut">
-                  Royal Bali Group · Royal Bali Services in-house rental
-                  management · single 50-year term registered at BPN
-                </dd>
-              </div>
-              <div>
-                <dt className="label-caps text-mushroom">Warranty</dt>
-                <dd className="mt-1 text-walnut">
-                  10 years structural · 5 years MEP · 2 years waterproofing
-                </dd>
-              </div>
-            </dl>
+          <div className="relative grid gap-0 lg:grid-cols-[2fr_3fr]">
+            <div className="border-b border-espresso/10 p-8 sm:p-12 lg:border-b-0 lg:border-r">
+              <a
+                href="/brochure/RAYA-Brochure.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="label-caps inline-block bg-espresso px-8 py-4 text-bone transition-opacity hover:opacity-90"
+              >
+                Download the brochure
+              </a>
 
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/brand/raya-monogram.svg"
-              alt=""
-              aria-hidden
-              className="mt-12 h-16 w-auto opacity-20"
-            />
-          </div>
+              <dl className="mt-10 space-y-7">
+                <div>
+                  <dt className="label-caps text-mushroom">Email</dt>
+                  <dd className="mt-1.5">
+                    <a href="mailto:hello@raya.bali" className="font-display text-2xl text-espresso transition-colors hover:text-walnut sm:text-3xl">
+                      hello@raya.bali
+                    </a>
+                  </dd>
+                </div>
+                <div>
+                  <dt className="label-caps text-mushroom">The site</dt>
+                  <dd className="mt-1.5 text-walnut">
+                    Jalan Kapur · Pecatu plateau · Uluwatu, Bali
+                  </dd>
+                </div>
+                <div>
+                  <dt className="label-caps text-mushroom">Developer</dt>
+                  <dd className="mt-1.5 text-walnut">
+                    Royal Bali Group · Royal Bali Services in-house rental
+                    management · single 50-year term registered at BPN
+                  </dd>
+                </div>
+                <div>
+                  <dt className="label-caps text-mushroom">Warranty</dt>
+                  <dd className="mt-1.5 text-walnut">
+                    10 years structural · 5 years MEP · 2 years waterproofing
+                  </dd>
+                </div>
+              </dl>
+            </div>
 
-          <div data-reveal className="border border-clay/40 bg-clay/25 p-8 shadow-sm backdrop-blur-sm sm:p-12">
-            <InquiryForm />
+            <div className="p-8 sm:p-12">
+              <p className="label-caps mb-8 text-mushroom">Request the package</p>
+              <InquiryForm />
+            </div>
           </div>
         </div>
       </section>
