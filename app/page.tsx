@@ -43,6 +43,10 @@ const SCHEMES = [
   { img: "/renders/scheme-apt-dark.jpg", name: "Apartment · Dark", note: "walnut · espresso" },
 ];
 
+// Planpoint viewer themed to the RAYA tokens via its query params.
+const PLAN_URL =
+  "https://www.royalbaligroup.com/plans/raya-residences-master-plan?bg=EAE3D7&ink=3B2E24&accent=B8A28E&hfont=Marcellus,Georgia,serif";
+
 const MATERIALS = [
   { img: "/materials/limewash-daybreak.jpg", name: "Limewash — Silent Daybreak" },
   { img: "/materials/limewash-sands.jpg", name: "Limewash — Serene Sands" },
@@ -237,19 +241,29 @@ export default function Home() {
             plans.
           </p>
         </div>
+        {/* phones get a full-bleed, near-full-height frame — the 66% ratio
+            leaves the viewer ~230px tall on a 390px screen, header-only */}
         <div
           data-reveal
-          className="relative mt-12 w-full overflow-hidden border border-espresso/10 shadow-sm"
-          style={{ paddingTop: "66%" }}
+          className="relative -mx-[var(--container-inset)] mt-12 h-[80vh] overflow-hidden border-y border-espresso/10 shadow-sm md:mx-0 md:h-auto md:border-x md:pt-[66%]"
         >
           <iframe
-            src="https://www.royalbaligroup.com/plans/raya-residences-master-plan?bg=EAE3D7&ink=3B2E24&accent=B8A28E&hfont=Marcellus,Georgia,serif"
+            src={PLAN_URL}
             title="RAYA Residences — Interactive Master Plan"
             className="absolute inset-0 h-full w-full border-0"
             loading="lazy"
             allowFullScreen
           />
         </div>
+        <a
+          data-reveal
+          href={PLAN_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="label-caps mt-5 inline-block text-mushroom transition-colors hover:text-espresso"
+        >
+          Open the plan full screen ↗
+        </a>
       </section>
 
       {/* ── Materials ────────────────────────────────────────────────────── */}
