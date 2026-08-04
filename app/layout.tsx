@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Marcellus, Jost } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import Nav from "@/components/layout/Nav";
+import Lightbox from "@/components/ui/Lightbox";
 import "./globals.css";
 
 const marcellus = Marcellus({
@@ -48,6 +49,7 @@ export default function RootLayout({
         <SmoothScroll>
           <Nav />
           {children}
+          <Lightbox />
         </SmoothScroll>
       </body>
     </html>

@@ -32,9 +32,9 @@ const EMPTY: FormData = {
   honeyPot: "",
 };
 
-const LABEL = "label-caps mb-2 block text-clay";
+const LABEL = "label-caps mb-2 block text-mushroom";
 const FIELD =
-  "w-full border-b border-limestone/20 bg-transparent py-3 text-limestone placeholder-limestone/30 transition-colors focus:border-clay focus:outline-none";
+  "w-full border-b border-espresso/20 bg-transparent py-3 text-espresso placeholder-walnut/40 transition-colors focus:border-espresso focus:outline-none";
 const SELECT = `${FIELD} appearance-none cursor-pointer`;
 
 export default function InquiryForm() {
@@ -73,14 +73,14 @@ export default function InquiryForm() {
 
   if (status === "success") {
     return (
-      <div className="cine-panel cine-text mx-auto max-w-lg py-16 text-center">
+      <div className="mx-auto max-w-lg py-16 text-center">
         <h3
-          className="font-display text-limestone"
+          className="font-display text-espresso"
           style={{ fontSize: "var(--text-h2)" }}
         >
           Request received.
         </h3>
-        <p className="mt-4 text-limestone/70">
+        <p className="mt-4 text-walnut">
           Thank you. We&apos;ll be in touch shortly with availability, pricing and
           the full RAYA package.
         </p>
@@ -161,16 +161,16 @@ export default function InquiryForm() {
             onChange={change}
             className={`${SELECT} ${data.interest === "" ? "text-limestone/40" : ""}`}
           >
-            <option value="" disabled className="bg-espresso">
+            <option value="" disabled className="bg-bone text-espresso">
               Select
             </option>
-            <option value="Villa" className="bg-espresso">
+            <option value="Villa" className="bg-bone text-espresso">
               A Villa
             </option>
-            <option value="Apartment" className="bg-espresso">
+            <option value="Apartment" className="bg-bone text-espresso">
               A Pool-Apartment
             </option>
-            <option value="Both" className="bg-espresso">
+            <option value="Both" className="bg-bone text-espresso">
               Both
             </option>
           </select>
@@ -187,19 +187,19 @@ export default function InquiryForm() {
             onChange={change}
             className={`${SELECT} ${data.timeline === "" ? "text-limestone/40" : ""}`}
           >
-            <option value="" disabled className="bg-espresso">
+            <option value="" disabled className="bg-bone text-espresso">
               Select
             </option>
-            <option value="Ready now" className="bg-espresso">
+            <option value="Ready now" className="bg-bone text-espresso">
               Ready now
             </option>
-            <option value="1–3 months" className="bg-espresso">
+            <option value="1–3 months" className="bg-bone text-espresso">
               1–3 months
             </option>
-            <option value="3–6 months" className="bg-espresso">
+            <option value="3–6 months" className="bg-bone text-espresso">
               3–6 months
             </option>
-            <option value="Exploring" className="bg-espresso">
+            <option value="Exploring" className="bg-bone text-espresso">
               Exploring
             </option>
           </select>
@@ -222,7 +222,7 @@ export default function InquiryForm() {
       </div>
 
       {status === "error" && (
-        <p className="mt-6 text-sm text-clay">
+        <p className="mt-6 text-sm text-walnut">
           Couldn&apos;t submit just now. Reach us directly at{" "}
           <a className="underline" href="mailto:hello@raya.bali">
             hello@raya.bali
@@ -244,7 +244,7 @@ export default function InquiryForm() {
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="label-caps bg-limestone px-8 py-4 text-espresso transition-opacity hover:opacity-90 disabled:opacity-50"
+          className="label-caps bg-espresso px-8 py-4 text-bone transition-opacity hover:opacity-90 disabled:opacity-50"
         >
           {status === "submitting" ? "Sending…" : "Request the package"}
         </button>
@@ -253,7 +253,7 @@ export default function InquiryForm() {
             href={`https://wa.me/${WHATSAPP}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="label-caps border border-limestone/40 px-8 py-4 text-limestone transition-colors hover:border-limestone"
+            className="label-caps border border-espresso/40 px-8 py-4 text-espresso transition-colors hover:border-espresso"
           >
             WhatsApp
           </a>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const LINKS = [
   { label: "The Collection", href: "#collection" },
@@ -10,10 +10,27 @@ const LINKS = [
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [light, setLight] = useState(false); // past the dark journey, over paper
+  const [hidden, setHidden] = useState(false); // hide on scroll down, return on scroll up
   const [open, setOpen] = useState(false);
+  const lastY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      const goingDown = y > lastY.current + 4;
+      const goingUp = y < lastY.current - 4;
+      if (goingDown && y > 140) setHidden(true);
+      else if (goingUp) setHidden(false);
+      lastY.current = y;
+      const sw = document.querySelector<HTMLElement>(".sw-root");
+      setLight(
+        sw
+          ? y > sw.offsetTop + sw.offsetHeight - window.innerHeight - 8
+          : y > 24,
+      );
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -27,11 +44,25 @@ export default function Nav() {
     };
   }, [open]);
 
+  const ink = light && !open;
+  const bar = ink
+    ? "bg-bone/85 backdrop-blur-md border-b border-espresso/8"
+    : scrolled || open
+      ? "bg-espresso/70 backdrop-blur-md"
+      : "bg-transparent";
+  const text = ink ? "text-espresso" : "text-limestone";
+  const linkText = ink
+    ? "text-walnut hover:text-espresso"
+    : "text-limestone/70 hover:text-limestone";
+  const button = ink
+    ? "border-espresso/40 text-espresso hover:border-espresso hover:bg-espresso hover:text-bone"
+    : "border-limestone/40 text-limestone hover:border-limestone hover:bg-limestone hover:text-espresso";
+
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
-          scrolled || open ? "bg-espresso/70 backdrop-blur-md" : "bg-transparent"
+        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,transform] duration-500 ${bar} ${
+          hidden && !open ? "-translate-y-full" : "translate-y-0"
         }`}
       >
       <nav className="flex items-center justify-between px-[var(--container-inset)] py-5">
@@ -42,13 +73,13 @@ export default function Nav() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/brand/raya-monogram-reversed.svg"
+            src={ink ? "/brand/raya-monogram.svg" : "/brand/raya-monogram-reversed.svg"}
             alt=""
             aria-hidden
             className="h-8 w-auto"
           />
           <span
-            className="font-display text-limestone text-xl"
+            className={`font-display text-xl ${text}`}
             style={{ letterSpacing: "0.3em" }}
           >
             RAYA
@@ -60,19 +91,13 @@ export default function Nav() {
           <ul className="flex items-center gap-8">
             {LINKS.map((l) => (
               <li key={l.href}>
-                <a
-                  href={l.href}
-                  className="label-caps text-limestone/70 transition-colors hover:text-limestone"
-                >
+                <a href={l.href} className={`label-caps transition-colors ${linkText}`}>
                   {l.label}
                 </a>
               </li>
             ))}
           </ul>
-          <a
-            href="#enquire"
-            className="label-caps border border-limestone/40 px-5 py-2.5 text-limestone transition-colors hover:border-limestone hover:bg-limestone hover:text-espresso"
-          >
+          <a href="#enquire" className={`label-caps border px-5 py-2.5 transition-colors ${button}`}>
             Enquire
           </a>
         </div>
@@ -86,14 +111,14 @@ export default function Nav() {
           className="relative z-50 flex h-6 w-7 flex-col justify-center gap-[6px] md:hidden"
         >
           <span
-            className={`block h-px w-full bg-limestone transition-transform duration-300 ${
-              open ? "translate-y-[3.5px] rotate-45" : ""
-            }`}
+            className={`block h-px w-full transition-transform duration-300 ${
+              open || !ink ? "bg-limestone" : "bg-espresso"
+            } ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
           />
           <span
-            className={`block h-px w-full bg-limestone transition-transform duration-300 ${
-              open ? "-translate-y-[3.5px] -rotate-45" : ""
-            }`}
+            className={`block h-px w-full transition-transform duration-300 ${
+              open || !ink ? "bg-limestone" : "bg-espresso"
+            } ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
           />
         </button>
       </nav>

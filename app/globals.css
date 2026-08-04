@@ -9,11 +9,12 @@
 ──────────────────────────────────────────────────────────────────────────────── */
 @theme {
   /* ── Palette ────────────────────────────────────────────────────────────── */
-  --color-limestone: #eae3d7; /* ground / light bg / ink-on-dark   */
+  --color-bone:      #f4f2ed; /* page ground — the brochure's paper */
+  --color-limestone: #eae3d7; /* secondary surface / ink-on-dark    */
   --color-clay:      #b8a28e; /* secondary                          */
   --color-mushroom:  #96806c; /* captions / muted text              */
-  --color-walnut:    #76614f; /* timber / mid tone                  */
-  --color-espresso:  #46382b; /* primary ink / dark bg              */
+  --color-walnut:    #76614f; /* body text on light                 */
+  --color-espresso:  #3b2e24; /* headline ink / dark journey bg     */
   --color-olive:     #36422e; /* accent                             */
 
   /* warm stone tints used by the 3D travertine + scrims */
@@ -30,8 +31,8 @@
 ──────────────────────────────────────────────────────────────────────────────── */
 :root {
   --text-hero: clamp(3.25rem, 11vw, 11rem);
-  --text-h1:   clamp(2.25rem, 5vw, 4.5rem);
-  --text-h2:   clamp(1.6rem, 3vw, 2.75rem);
+  --text-h1:   clamp(2.5rem, 5.5vw, 5.25rem);
+  --text-h2:   clamp(1.75rem, 3.2vw, 3rem);
   --text-lead: clamp(1.05rem, 1.6vw, 1.35rem);
 
   --tracking-wordmark: 0.42em; /* RAYA letter-spaced wordmark */
@@ -54,13 +55,17 @@ html {
   text-rendering: optimizeLegibility;
 }
 
+/* Light brochure ground below the dark journey — sections paint their own bg,
+   the body ground is the brochure's paper tone. */
 body {
   margin: 0;
-  background: var(--color-espresso);
-  color: var(--color-limestone);
+  background: var(--color-bone);
+  color: var(--color-walnut);
   font-family: var(--font-body), system-ui, sans-serif;
   font-weight: 300;
-  overflow-x: hidden;
+  /* clip, not hidden — hidden turns body into a scroll container and kills
+     position:sticky (the location section's map column) */
+  overflow-x: clip;
 }
 
 /* Lenis sets this; keep native scroll sane before it boots / when reduced-motion. */
@@ -116,10 +121,37 @@ html.lenis body {
   will-change: opacity, transform;
 }
 
+/* written-out headings: SmoothScroll splits [data-write] into word spans and
+   staggers them left → right; hidden only once JS has split (.write-split),
+   so no-JS still shows the text */
+[data-write].write-split .write-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.4em);
+  filter: blur(4px);
+}
+
+/* gallery frames drift in from the side; JS animates to neutral */
+[data-slide="left"] {
+  opacity: 0;
+  transform: translateX(-56px);
+}
+[data-slide="right"] {
+  opacity: 0;
+  transform: translateX(56px);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal] {
+  [data-reveal],
+  [data-slide="left"],
+  [data-slide="right"] {
     opacity: 1;
     transform: none;
+  }
+  [data-write].write-split .write-word {
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
   .lenis.lenis-smooth {
     scroll-behavior: smooth !important;
@@ -167,6 +199,19 @@ html.lenis body {
 .sw-root.sw-done .sw-hint {
   opacity: 0 !important;
   pointer-events: none;
+}
+
+/* gallery images open fullscreen */
+img[data-lightbox] {
+  cursor: zoom-in;
+}
+@keyframes lightbox-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 ::selection {
