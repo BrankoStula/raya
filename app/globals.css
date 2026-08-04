@@ -9,7 +9,8 @@
 ──────────────────────────────────────────────────────────────────────────────── */
 @theme {
   /* ── Palette ────────────────────────────────────────────────────────────── */
-  --color-bone:      #f4f2ed; /* page ground — the brochure's paper */
+  --color-bone:      #efebe2; /* page ground — brochure paper warmed toward the
+                                 brand book's Limestone, per Branko (less white) */
   --color-limestone: #eae3d7; /* secondary surface / ink-on-dark    */
   --color-clay:      #b8a28e; /* secondary                          */
   --color-mushroom:  #96806c; /* captions / muted text              */

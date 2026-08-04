@@ -219,8 +219,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Master plan — the RBG Planpoint interactive plan, embedded ───── */}
-      <section id="masterplan" className="bg-[#f4f1ec] px-[var(--container-inset)] py-28">
+      {/* ── Master plan — the RBG Planpoint interactive plan, embedded and
+             themed to the RAYA tokens via its query params ─────────────────── */}
+      <section id="masterplan" className="bg-limestone px-[var(--container-inset)] py-28">
         <div className="max-w-xl">
           <Eyebrow>04 · The master plan</Eyebrow>
           <h2
@@ -242,7 +243,7 @@ export default function Home() {
           style={{ paddingTop: "66%" }}
         >
           <iframe
-            src="https://www.royalbaligroup.com/plans/raya-residences-master-plan"
+            src="https://www.royalbaligroup.com/plans/raya-residences-master-plan?bg=EAE3D7&ink=3B2E24&accent=B8A28E&hfont=Marcellus,Georgia,serif"
             title="RAYA Residences — Interactive Master Plan"
             className="absolute inset-0 h-full w-full border-0"
             loading="lazy"
