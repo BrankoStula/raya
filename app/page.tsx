@@ -219,11 +219,43 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Master plan — the RBG Planpoint interactive plan, embedded ───── */}
+      <section id="masterplan" className="bg-[#f4f1ec] px-[var(--container-inset)] py-28">
+        <div className="max-w-xl">
+          <Eyebrow>04 · The master plan</Eyebrow>
+          <h2
+            data-write
+            className="font-display text-espresso"
+            style={{ fontSize: "var(--text-h1)" }}
+          >
+            Every home on the lane.
+          </h2>
+          <p data-reveal className="mt-6 leading-relaxed text-walnut" style={{ fontSize: "var(--text-lead)" }}>
+            Walk the plan yourself: ten villas in five mirrored pairs, the
+            apartment house at the road frontage. Open a home for its floor
+            plans.
+          </p>
+        </div>
+        <div
+          data-reveal
+          className="relative mt-12 w-full overflow-hidden border border-espresso/10 shadow-sm"
+          style={{ paddingTop: "66%" }}
+        >
+          <iframe
+            src="https://www.royalbaligroup.com/plans/raya-residences-master-plan"
+            title="RAYA Residences — Interactive Master Plan"
+            className="absolute inset-0 h-full w-full border-0"
+            loading="lazy"
+            allowFullScreen
+          />
+        </div>
+      </section>
+
       {/* ── Materials ────────────────────────────────────────────────────── */}
       <section id="materials" className="relative overflow-hidden bg-bone px-[var(--container-inset)] py-28">
         <div className="relative w-full">
           <div className="max-w-xl">
-            <Eyebrow>04 · Material truth</Eyebrow>
+            <Eyebrow>05 · Material truth</Eyebrow>
             <h2
               data-write
               className="font-display text-espresso"
@@ -258,7 +290,7 @@ export default function Home() {
       <section id="enquire" className="relative overflow-hidden bg-bone px-[var(--container-inset)] py-28">
         <div className="relative grid w-full gap-14 lg:grid-cols-[2fr_3fr] lg:gap-20">
           <div>
-            <Eyebrow>05 · Enquire</Eyebrow>
+            <Eyebrow>06 · Enquire</Eyebrow>
             <h2
               data-write
               className="font-display text-espresso"
