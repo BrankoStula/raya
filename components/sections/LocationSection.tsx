@@ -358,17 +358,21 @@ export default function LocationSection() {
                     type="button"
                     aria-label="Previous image"
                     onClick={() => step(-1)}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 border border-espresso/10 bg-bone/85 px-2.5 py-1.5 text-espresso backdrop-blur-sm transition-colors hover:bg-bone"
+                    className="group absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-espresso/15 bg-bone/90 text-espresso shadow-sm backdrop-blur-sm transition-all duration-300 hover:bg-espresso hover:text-bone"
                   >
-                    ‹
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="-translate-x-px transition-transform duration-300 group-hover:-translate-x-0.5">
+                      <path d="m15 18-6-6 6-6" />
+                    </svg>
                   </button>
                   <button
                     type="button"
                     aria-label="Next image"
                     onClick={() => step(1)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 border border-espresso/10 bg-bone/85 px-2.5 py-1.5 text-espresso backdrop-blur-sm transition-colors hover:bg-bone"
+                    className="group absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-espresso/15 bg-bone/90 text-espresso shadow-sm backdrop-blur-sm transition-all duration-300 hover:bg-espresso hover:text-bone"
                   >
-                    ›
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="translate-x-px transition-transform duration-300 group-hover:translate-x-0.5">
+                      <path d="m9 18 6-6-6-6" />
+                    </svg>
                   </button>
                 </>
               )}

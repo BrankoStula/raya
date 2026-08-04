@@ -4,7 +4,6 @@ import CollectionShowcase from "@/components/sections/CollectionShowcase";
 import InquiryForm from "@/components/sections/InquiryForm";
 import LocationSection from "@/components/sections/LocationSection";
 import PlanEmbed from "@/components/sections/PlanEmbed";
-import ResidencesShowcase from "@/components/sections/ResidencesShowcase";
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -14,6 +13,28 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
     </p>
   );
 }
+
+// Real mix per the RAYA brochure: eighteen residences — ten two-bed pool-villas
+// in five mirrored pairs, eight apartments over three storeys behind a staffed
+// lobby. Prices as published; delivered furnished.
+const RESIDENCES = [
+  {
+    id: "villas",
+    name: "The Villas",
+    img: "/renders/villa-bedroom.jpg",
+    imgAlt: "Villa bedroom — timber headboard wall, soft morning light",
+    lead: "Ten two-bedroom pool villas in five mirrored pairs. 204 m² over three levels, each with a walled garden, a private pool and a roof terrace.",
+    facts: ["2 bedrooms · 3 levels", "Private pools", "US$499,900 · furnished"],
+  },
+  {
+    id: "apartments",
+    name: "The Apartments",
+    img: "/renders/apt-living.jpg",
+    imgAlt: "Apartment kitchen and living opening to the pool courtyard",
+    lead: "Eight one-bedroom apartments over three storeys at the road frontage, behind a staffed lobby. Ground-floor plans come with a private pool courtyard.",
+    facts: ["8 residences", "Staffed lobby", "From US$169,900 · furnished"],
+  },
+];
 
 // Two delivered interior schemes — light and dark — across villa and apartment.
 const SCHEMES = [
@@ -119,7 +140,51 @@ export default function Home() {
       {/* ── The residences ───────────────────────────────────────────────── */}
       <section id="units" className="bg-bone px-[var(--container-inset)] py-28">
         <div className="w-full">
-          <ResidencesShowcase />
+          <div className="max-w-xl">
+            <Eyebrow>03 · The residences</Eyebrow>
+            <h2
+              data-write
+              className="font-display text-espresso"
+              style={{ fontSize: "var(--text-h1)" }}
+            >
+              Two ways to hold the high ground.
+            </h2>
+            <p data-reveal className="mt-6 leading-relaxed text-walnut" style={{ fontSize: "var(--text-lead)" }}>
+              One arrival, eighteen residences: ten pool villas and eight
+              managed apartments, delivered furnished. Visa, PT PMA and land
+              tax are part of the price.
+            </p>
+          </div>
+          <div className="mt-14 grid gap-6 md:grid-cols-2">
+            {RESIDENCES.map((r, i) => (
+              <figure
+                key={r.id}
+                data-slide={i === 0 ? "left" : "right"}
+                className="border border-espresso/10 bg-white/45"
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    data-parallax
+                    data-lightbox
+                    src={r.img}
+                    alt={r.imgAlt}
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <figcaption className="p-6">
+                  <span className="font-display text-2xl text-espresso">{r.name}</span>
+                  <p className="mt-3 leading-relaxed text-walnut">{r.lead}</p>
+                  <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+                    {r.facts.map((f) => (
+                      <span key={f} className="label-caps text-mushroom">{f}</span>
+                    ))}
+                  </div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
 
           {/* the villa in photos — full render set from the design team */}
           <Gallery label="Inside the villa" items={VILLA_GALLERY} popIndex={2} />
