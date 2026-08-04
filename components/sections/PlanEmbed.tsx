@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 
-// Planpoint embed with the rbg VillaFloorPlan loading pattern: a quiet loader
-// until the iframe fires `load`, then the viewer fades in. Viewport-height
-// frame on every breakpoint (aspect ratios starve the viewer on phones).
+// Planpoint embed matching rbg's VillaFloorPlan sizing exactly: full-bleed
+// edge-to-edge on every breakpoint, 85vh with 500/800px minimums, loader
+// overlay until the iframe fires `load`, then a fade-in.
 export default function PlanEmbed({ src, title }: { src: string; title: string }) {
   const [loading, setLoading] = useState(true);
 
   return (
-    <div className="relative -mx-[var(--container-inset)] mt-12 h-[80vh] overflow-hidden border-y border-espresso/10 shadow-sm md:mx-0 md:h-[85vh] md:border-x">
+    <div className="relative -mx-[var(--container-inset)] mt-12 h-[85vh] min-h-[500px] overflow-hidden border-y border-espresso/10 lg:min-h-[800px]">
       {loading && (
         <div className="absolute inset-0 z-20 flex items-center justify-center bg-limestone">
           <div className="flex flex-col items-center gap-4">
