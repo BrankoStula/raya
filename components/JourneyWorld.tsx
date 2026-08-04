@@ -17,7 +17,7 @@ const SECTIONS = [
     clipMobile: "/journey/leg_1-m.mp4",
     stillMobile: "/journey/leg_1-m.webp",
     accent: "#b8a28e",
-    scroll: 1.8, // 13s: BEV daylight→dusk hold, dissolve, original descent to the door
+    scroll: 2.0, // 15s: BEV glide into the golden view, then the original descent
     linger: 0.4,
     eyebrow: "Bingin · Uluwatu · Bali",
     title: "Above the surf. Above the crowd.",
