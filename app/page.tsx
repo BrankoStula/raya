@@ -46,7 +46,7 @@ const SCHEMES = [
 
 // Planpoint viewer themed to the RAYA tokens via its query params.
 const PLAN_URL =
-  "https://www.royalbaligroup.com/plans/raya-residences-master-plan?bg=EAE3D7&ink=3B2E24&accent=B8A28E&hfont=Marcellus,Georgia,serif";
+  "https://www.royalbaligroup.com/plans/raya-residences-master-plan?theme=1&embed=grow&bg=EAE3D7&ink=3B2E24&accent=B8A28E&hfont=Marcellus,Georgia,serif";
 
 const MATERIALS = [
   { img: "/materials/limewash-daybreak.jpg", name: "Limewash — Silent Daybreak" },
