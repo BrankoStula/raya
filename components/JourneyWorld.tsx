@@ -17,7 +17,7 @@ const SECTIONS = [
     clipMobile: "/journey/leg_1-m.mp4",
     stillMobile: "/journey/leg_1-m.webp",
     accent: "#b8a28e",
-    scroll: 2.2, // 16.5s: BEV daylight still dissolving to dusk, aerial + descent bridge
+    scroll: 2.4, // 18s: generated BEV daylight→dusk aerial + descent bridge
     linger: 0.4,
     eyebrow: "Bingin · Uluwatu · Bali",
     title: "Above the surf. Above the crowd.",

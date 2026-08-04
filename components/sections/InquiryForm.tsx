@@ -82,8 +82,16 @@ export default function InquiryForm() {
         </h3>
         <p className="mt-4 text-walnut">
           Thank you. We&apos;ll be in touch shortly with availability, pricing and
-          the full RAYA package.
+          the full RAYA package. The brochure is yours now:
         </p>
+        <a
+          href="/brochure/RAYA-Brochure.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="label-caps mt-8 inline-block bg-espresso px-8 py-4 text-bone transition-opacity hover:opacity-90"
+        >
+          Download the brochure
+        </a>
       </div>
     );
   }
@@ -165,10 +173,10 @@ export default function InquiryForm() {
               Select
             </option>
             <option value="Villa" className="bg-bone text-espresso">
-              A Villa
+              Villa
             </option>
             <option value="Apartment" className="bg-bone text-espresso">
-              A Pool-Apartment
+              Apartment
             </option>
             <option value="Both" className="bg-bone text-espresso">
               Both

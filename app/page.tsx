@@ -333,15 +333,7 @@ export default function Home() {
                 />
               </div>
               <div className="p-8 sm:p-10">
-                <a
-                  href="/brochure/RAYA-Brochure.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="label-caps inline-block bg-espresso px-8 py-4 text-bone transition-opacity hover:opacity-90"
-                >
-                  Download the brochure
-                </a>
-                <dl className="mt-8 space-y-5">
+                <dl className="space-y-5">
                   <div>
                     <dt className="label-caps text-mushroom">The site</dt>
                     <dd className="mt-1.5 text-walnut">
