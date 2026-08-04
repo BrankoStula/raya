@@ -17,7 +17,7 @@ const SECTIONS = [
     clipMobile: "/journey/leg_1-m.mp4",
     stillMobile: "/journey/leg_1-m.webp",
     accent: "#b8a28e",
-    scroll: 1.8, // 13.5s: aerial + generated descent bridging into the villa facade
+    scroll: 2.2, // 16.5s: BEV daylight still dissolving to dusk, aerial + descent bridge
     linger: 0.4,
     eyebrow: "Bingin · Uluwatu · Bali",
     title: "Above the surf. Above the crowd.",
