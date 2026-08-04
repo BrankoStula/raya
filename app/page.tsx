@@ -321,45 +321,41 @@ export default function Home() {
           />
 
           <div className="relative grid gap-0 lg:grid-cols-[2fr_3fr]">
-            <div className="border-b border-espresso/10 p-8 sm:p-12 lg:border-b-0 lg:border-r">
-              <a
-                href="/brochure/RAYA-Brochure.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="label-caps inline-block bg-espresso px-8 py-4 text-bone transition-opacity hover:opacity-90"
-              >
-                Download the brochure
-              </a>
-
-              <dl className="mt-10 space-y-7">
-                <div>
-                  <dt className="label-caps text-mushroom">Email</dt>
-                  <dd className="mt-1.5">
-                    <a href="mailto:hello@raya.bali" className="font-display text-2xl text-espresso transition-colors hover:text-walnut sm:text-3xl">
-                      hello@raya.bali
-                    </a>
-                  </dd>
-                </div>
-                <div>
-                  <dt className="label-caps text-mushroom">The site</dt>
-                  <dd className="mt-1.5 text-walnut">
-                    Jalan Kapur · Pecatu plateau · Uluwatu, Bali
-                  </dd>
-                </div>
-                <div>
-                  <dt className="label-caps text-mushroom">Developer</dt>
-                  <dd className="mt-1.5 text-walnut">
-                    Royal Bali Group · Royal Bali Services in-house rental
-                    management · single 50-year term registered at BPN
-                  </dd>
-                </div>
-                <div>
-                  <dt className="label-caps text-mushroom">Warranty</dt>
-                  <dd className="mt-1.5 text-walnut">
-                    10 years structural · 5 years MEP · 2 years waterproofing
-                  </dd>
-                </div>
-              </dl>
+            <div className="flex flex-col border-b border-espresso/10 lg:border-b-0 lg:border-r">
+              <div className="relative min-h-[16rem] flex-1 overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  data-parallax
+                  src="/renders/villa-pool.jpg"
+                  alt="Villa plunge pool with stepping pads"
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              </div>
+              <div className="p-8 sm:p-10">
+                <a
+                  href="/brochure/RAYA-Brochure.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="label-caps inline-block bg-espresso px-8 py-4 text-bone transition-opacity hover:opacity-90"
+                >
+                  Download the brochure
+                </a>
+                <dl className="mt-8 space-y-5">
+                  <div>
+                    <dt className="label-caps text-mushroom">The site</dt>
+                    <dd className="mt-1.5 text-walnut">
+                      Jalan Kapur · Pecatu plateau · Uluwatu, Bali
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="label-caps text-mushroom">Warranty</dt>
+                    <dd className="mt-1.5 text-walnut">
+                      10 years structural · 5 years MEP · 2 years waterproofing
+                    </dd>
+                  </div>
+                </dl>
+              </div>
             </div>
 
             <div className="p-8 sm:p-12">
