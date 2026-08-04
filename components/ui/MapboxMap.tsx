@@ -22,30 +22,9 @@ import {
 import { MAPBOX_PUBLIC_TOKEN } from "@/lib/config/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-export type POIType =
-  | "project"
-  | "surf"
-  | "gym"
-  | "temple"
-  | "beach"
-  | "airport"
-  | "restaurant"
-  | "resort";
+import { RAYA_CENTER, type Camera, type POI, type POIType } from "./map-data";
 
-export type POI = {
-  label: string;
-  longitude: number;
-  latitude: number;
-  type: POIType;
-};
-
-export type Camera = {
-  longitude: number;
-  latitude: number;
-  zoom: number;
-  pitch: number;
-  bearing: number;
-};
+export { RAYA_CENTER, type Camera, type POI, type POIType };
 
 const MAPBOX_TOKEN = MAPBOX_PUBLIC_TOKEN;
 
@@ -67,7 +46,6 @@ type Props = {
   onSelect: (label: string | null) => void;
 };
 
-export const RAYA_CENTER = { longitude: 115.1223944, latitude: -8.8100574 };
 
 const routeGeoJSON = (coords: [number, number][]) => ({
   type: "Feature" as const,
@@ -87,7 +65,7 @@ export default function MapboxMap({ pois, camera, selected, onSelect }: Props) {
   const [fetched, setFetched] = useState<{
     key: string;
     coords: [number, number][];
-    info: { km: number; min: number } | null;
+    info: { km: number; min: number; mode: "bike" | "drive" } | null;
   } | null>(null);
   const route = selected && fetched?.key === selected ? fetched.coords : null;
   const routeInfo = selected && fetched?.key === selected ? fetched.info : null;
@@ -107,11 +85,14 @@ export default function MapboxMap({ pois, camera, selected, onSelect }: Props) {
     });
   }, [camera]);
 
-  // Selected POI → real driving route from RAYA + distance/time chip.
+  // Selected POI → real route from RAYA + distance/time chip. Cycling profile
+  // (the Bukit is scooter/bike country — rbg's presentation does the same);
+  // the airport keeps driving, nobody bikes to DPS.
   useEffect(() => {
     if (!selected) return;
     const poi = pois.find((p) => p.label === selected);
     if (!poi || poi.type === "project") return;
+    const profile = poi.type === "airport" ? "driving" : "cycling";
     const straight: [number, number][] = [
       [RAYA_CENTER.longitude, RAYA_CENTER.latitude],
       [poi.longitude, poi.latitude],
@@ -120,7 +101,7 @@ export default function MapboxMap({ pois, camera, selected, onSelect }: Props) {
     (async () => {
       try {
         const url =
-          `https://api.mapbox.com/directions/v5/mapbox/driving/` +
+          `https://api.mapbox.com/directions/v5/mapbox/${profile}/` +
           `${RAYA_CENTER.longitude},${RAYA_CENTER.latitude};${poi.longitude},${poi.latitude}` +
           `?geometries=geojson&overview=full&access_token=${MAPBOX_TOKEN}`;
         const res = await fetch(url);
@@ -131,7 +112,11 @@ export default function MapboxMap({ pois, camera, selected, onSelect }: Props) {
           key: selected,
           coords: (r?.geometry?.coordinates as [number, number][] | undefined) ?? straight,
           info: r
-            ? { km: r.distance / 1000, min: Math.max(1, Math.round(r.duration / 60)) }
+            ? {
+                km: r.distance / 1000,
+                min: Math.max(1, Math.round(r.duration / 60)),
+                mode: profile === "cycling" ? "bike" : "drive",
+              }
             : null,
         });
       } catch {
@@ -239,7 +224,7 @@ export default function MapboxMap({ pois, camera, selected, onSelect }: Props) {
       {routeInfo && selected && (
         <div className="pointer-events-none absolute bottom-5 left-5 z-10 border border-espresso/10 bg-bone/95 px-3 py-1.5 shadow-sm backdrop-blur-sm">
           <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-espresso">
-            {routeInfo.km.toFixed(routeInfo.km < 10 ? 2 : 0)} km · {routeInfo.min} min
+            {routeInfo.km.toFixed(routeInfo.km < 10 ? 2 : 0)} km · {routeInfo.min} min by {routeInfo.mode}
           </span>
         </div>
       )}

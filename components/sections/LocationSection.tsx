@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import MapboxMap, { RAYA_CENTER, type Camera, type POI } from "@/components/ui/MapboxMap";
+import MapboxMap from "@/components/ui/MapboxMap";
+import { RAYA_CENTER, type Camera, type POI } from "@/components/ui/map-data";
 
 // The Bukit as the rbg broker presentation tells it, taken full-bleed: the map
 // owns the whole viewport width and stays pinned while the brochure's location
