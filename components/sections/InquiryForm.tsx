@@ -254,7 +254,7 @@ export default function InquiryForm() {
           disabled={status === "submitting"}
           className="label-caps bg-espresso px-8 py-4 text-bone transition-opacity hover:opacity-90 disabled:opacity-50"
         >
-          {status === "submitting" ? "Sending…" : "Request the package"}
+          {status === "submitting" ? "Sending…" : "Download the brochure"}
         </button>
         {WHATSAPP ? (
           <a
