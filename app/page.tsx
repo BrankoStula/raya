@@ -3,6 +3,7 @@ import JourneyWorld from "@/components/JourneyWorld";
 import CollectionShowcase from "@/components/sections/CollectionShowcase";
 import InquiryForm from "@/components/sections/InquiryForm";
 import LocationSection from "@/components/sections/LocationSection";
+import PlanEmbed from "@/components/sections/PlanEmbed";
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -241,20 +242,7 @@ export default function Home() {
             plans.
           </p>
         </div>
-        {/* phones get a full-bleed, near-full-height frame — the 66% ratio
-            leaves the viewer ~230px tall on a 390px screen, header-only */}
-        <div
-          data-reveal
-          className="relative -mx-[var(--container-inset)] mt-12 h-[80vh] overflow-hidden border-y border-espresso/10 shadow-sm md:mx-0 md:h-auto md:border-x md:pt-[66%]"
-        >
-          <iframe
-            src={PLAN_URL}
-            title="RAYA Residences — Interactive Master Plan"
-            className="absolute inset-0 h-full w-full border-0"
-            loading="lazy"
-            allowFullScreen
-          />
-        </div>
+        <PlanEmbed src={PLAN_URL} title="RAYA Residences — Interactive Master Plan" />
         <a
           data-reveal
           href={PLAN_URL}
