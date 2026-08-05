@@ -39,7 +39,7 @@ type GalleryCell = { img: string; alt: string } | { word: string };
 
 const VILLA_GALLERY: GalleryCell[] = [
   { img: "/renders/villa-ext.jpg", alt: "Villa row exterior between the palms" },
-  { word: "Bingin." },
+  { word: "Villas." },
   { img: "/renders/villa-entrance.jpg", alt: "Villa entrance — timber screen and stone" },
   { img: "/renders/villa-kitchen.jpg", alt: "Villa kitchen — pale oak island under the sculptural light" },
   { img: "/renders/villa-living.jpg", alt: "Villa living room in limewash and linen" },
@@ -50,7 +50,7 @@ const VILLA_GALLERY: GalleryCell[] = [
 
 const APT_GALLERY: GalleryCell[] = [
   { img: "/renders/facade-front.jpg", alt: "The apartment house — front elevation on Jalan Kapur" },
-  { word: "Uluwatu." },
+  { word: "Apartments." },
   { img: "/renders/facade-left.jpg", alt: "The apartment house from the corner" },
   { img: "/renders/apt-entrance.jpg", alt: "Apartment entrance — plunge pool at the door" },
   { img: "/renders/apt-kitchen2.jpg", alt: "Apartment kitchen island under woven pendants" },
@@ -87,7 +87,7 @@ function Gallery({
             return (
               <div
                 key={g.word}
-                className={`col-span-1 hidden items-center justify-center md:flex ${m.span} ${m.aspect}`}
+                className={`col-span-1 hidden min-w-0 items-center justify-center md:flex ${m.span} ${m.aspect}`}
               >
                 <span
                   className="font-display text-clay"
@@ -103,7 +103,7 @@ function Gallery({
               key={g.img}
               data-slide={m.slide}
               data-pop={i === popIndex ? "true" : undefined}
-              className={`relative col-span-1 overflow-hidden ${m.span} ${m.aspect}`}
+              className={`relative col-span-1 min-w-0 overflow-hidden ${m.span} ${m.aspect}`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -194,7 +194,7 @@ export default function Home() {
           </p>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
             {SCHEMES.map((sch, i) => (
-              <figure key={sch.name} data-slide={i < 2 ? "left" : "right"}>
+              <figure key={sch.name} data-slide={i < 2 ? "left" : "right"} className="min-w-0">
                 <div className="aspect-[4/5] overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -265,7 +265,7 @@ export default function Home() {
           </div>
           <div className="mt-14 grid grid-cols-3 gap-4 md:gap-5">
             {MATERIALS.map((m, i) => (
-              <figure key={m.img} data-slide={i === 2 ? "right" : "left"}>
+              <figure key={m.img} data-slide={i === 2 ? "right" : "left"} className="min-w-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   data-lightbox

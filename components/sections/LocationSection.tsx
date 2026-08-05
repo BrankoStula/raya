@@ -147,6 +147,7 @@ const PHOTO_CREDITS: Record<string, string> = {
   "/pois/bingin.jpg": "photo Wokshots · CC BY-SA 4.0",
   "/pois/uluwatu-temple.jpg": "photo Jenn Evelyn-Ann · CC0",
   "/pois/saltwood.jpg": "photo © Saltwood",
+  "/pois/istana.jpg": "photo © The Istana",
 };
 
 type Sub = {
@@ -174,8 +175,8 @@ const SUBS: Sub[] = [
       ["Istana", "10–12 min"],
     ],
     camera: { longitude: 115.12, latitude: -8.8095, zoom: 13.4, pitch: 45, bearing: -12 },
-    img: "/renders/villa-rooftop.jpg",
-    imgAlt: "Villa rooftop terrace in the morning",
+    img: "/pois/istana.jpg",
+    imgAlt: "Istana — ice baths on the Uluwatu cliff",
   },
   {
     id: "beaches",

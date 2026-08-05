@@ -54,6 +54,10 @@
 html {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* clip here too — any content wider than the device would otherwise expand
+     the mobile layout viewport (426px on a 390px phone) and shrink the whole
+     page, pushing the nav's tap targets half off-screen */
+  overflow-x: clip;
 }
 
 /* Light brochure ground below the dark journey — sections paint their own bg,
@@ -172,6 +176,11 @@ html.lenis body {
 /* Brand corrections to the engine chrome: no route rail, and square, quiet
    buttons/tags matching the site's label-caps language (engine defaults are pills). */
 .sw-root .sw-route {
+  display: none;
+}
+/* the engine's own top bar renders empty (nav:false, no brand) but its fixed
+   full-width z-50 box sat over the site header and swallowed every nav click */
+.sw-root .sw-topbar {
   display: none;
 }
 .sw-root .sw-btn,

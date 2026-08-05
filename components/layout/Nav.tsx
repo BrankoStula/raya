@@ -14,9 +14,18 @@ const LINKS = [
 function scrollToHash(href: string) {
   const el = document.querySelector(href);
   if (!el) return;
-  const lenis = (window as unknown as { __lenis?: { scrollTo: (t: Element | number, o?: object) => void } }).__lenis;
-  if (lenis) lenis.scrollTo(el as Element, { duration: 1.4 });
-  else el.scrollIntoView({ behavior: "smooth" });
+  const lenis = (window as unknown as { __lenis?: { scrollTo: (t: number, o?: object) => void } }).__lenis;
+  const go = (duration: number) => {
+    const y = Math.max(0, el.getBoundingClientRect().top + window.scrollY);
+    if (lenis) lenis.scrollTo(y, { duration });
+    else window.scrollTo({ top: y, behavior: "smooth" });
+  };
+  go(1.4);
+  // pinned sections between here and the target shift the layout mid-flight —
+  // one corrective pass once things settle
+  setTimeout(() => {
+    if (Math.abs(el.getBoundingClientRect().top) > 80) go(0.6);
+  }, 1600);
 }
 
 export default function Nav() {
@@ -170,7 +179,7 @@ export default function Nav() {
                 onClick={(e) => {
                   e.preventDefault();
                   setOpen(false);
-                  setTimeout(() => scrollToHash(l.href), 60);
+                  setTimeout(() => scrollToHash(l.href), 300);
                 }}
                 className="font-display text-3xl text-limestone"
               >
@@ -184,7 +193,7 @@ export default function Nav() {
           onClick={(e) => {
             e.preventDefault();
             setOpen(false);
-            setTimeout(() => scrollToHash("#enquire"), 60);
+            setTimeout(() => scrollToHash("#enquire"), 300);
           }}
           className="label-caps border border-limestone/40 px-8 py-4 text-limestone"
         >
