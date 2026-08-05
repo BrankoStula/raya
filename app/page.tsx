@@ -44,7 +44,7 @@ const VILLA_GALLERY: GalleryCell[] = [
   { img: "/renders/villa-kitchen.jpg", alt: "Villa kitchen — pale oak island under the sculptural light" },
   { img: "/renders/villa-living.jpg", alt: "Villa living room in limewash and linen" },
   { img: "/renders/villa-bedroom.jpg", alt: "Villa bedroom — timber headboard wall, soft morning light" },
-  { img: "/renders/villa-bed2.jpg", alt: "Villa bedroom with woven pendant light" },
+  { img: "/renders/villa-bath.jpg", alt: "Villa bathroom — stone vanity and black-framed rain shower" },
   { img: "/renders/villa-rooftop.jpg", alt: "Villa rooftop terrace under a timber ceiling" },
 ];
 
