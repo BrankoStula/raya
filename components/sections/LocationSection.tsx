@@ -146,6 +146,7 @@ const POI_META: Record<string, { desc: string; img?: string; credit?: string; fi
 const PHOTO_CREDITS: Record<string, string> = {
   "/pois/bingin.jpg": "photo Wokshots · CC BY-SA 4.0",
   "/pois/uluwatu-temple.jpg": "photo Jenn Evelyn-Ann · CC0",
+  "/pois/saltwood.jpg": "photo © Saltwood",
 };
 
 type Sub = {
@@ -208,8 +209,8 @@ const SUBS: Sub[] = [
       ["Drifter Cafe", "5–7 min"],
     ],
     camera: { longitude: 115.108, latitude: -8.809, zoom: 13.2, pitch: 45, bearing: -8 },
-    img: "/renders/apt-kitchen2.jpg",
-    imgAlt: "Apartment kitchen island under woven pendants",
+    img: "/pois/saltwood.jpg",
+    imgAlt: "Saltwood — cliffside dining above Bingin",
   },
   {
     id: "neighbours",

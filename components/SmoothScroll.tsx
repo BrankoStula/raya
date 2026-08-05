@@ -156,6 +156,9 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     });
 
     lenis.on("scroll", () => ScrollTrigger.update());
+    // nav needs the instance for anchor scrolling (plain hash jumps die under
+    // the smoothed scroll on the journey's long runway)
+    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
 
     const raf = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(raf);
@@ -180,6 +183,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       ro.disconnect();
       clearTimeout(refreshT);
       gsap.ticker.remove(raf);
+      delete (window as unknown as { __lenis?: Lenis }).__lenis;
       lenis.destroy();
       batch.forEach((t) => t.kill());
       writes.forEach((t) => t.kill());

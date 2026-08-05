@@ -3,10 +3,21 @@
 import { useEffect, useRef, useState } from "react";
 
 const LINKS = [
-  { label: "The Collection", href: "#collection" },
-  { label: "Residences", href: "#units" },
+  { label: "Villas", href: "#villas" },
+  { label: "Apartments", href: "#apartments" },
   { label: "The Bukit", href: "#bukit" },
+  { label: "Master plan", href: "#masterplan" },
 ];
+
+// Plain hash jumps die under Lenis on the journey's long runway — route every
+// nav click through the smooth scroller (native fallback included).
+function scrollToHash(href: string) {
+  const el = document.querySelector(href);
+  if (!el) return;
+  const lenis = (window as unknown as { __lenis?: { scrollTo: (t: Element | number, o?: object) => void } }).__lenis;
+  if (lenis) lenis.scrollTo(el as Element, { duration: 1.4 });
+  else el.scrollIntoView({ behavior: "smooth" });
+}
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -67,9 +78,15 @@ export default function Nav() {
       >
       <nav className="flex items-center justify-between px-[var(--container-inset)] py-5">
         <a
-          href="#hero"
+          href="#top"
           className="flex items-center gap-3"
-          onClick={() => setOpen(false)}
+          onClick={(e) => {
+            e.preventDefault();
+            setOpen(false);
+            const lenis = (window as unknown as { __lenis?: { scrollTo: (t: number, o?: object) => void } }).__lenis;
+            if (lenis) lenis.scrollTo(0, { duration: 1.4 });
+            else window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -91,13 +108,27 @@ export default function Nav() {
           <ul className="flex items-center gap-8">
             {LINKS.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className={`label-caps transition-colors ${linkText}`}>
+                <a
+                  href={l.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToHash(l.href);
+                  }}
+                  className={`label-caps transition-colors ${linkText}`}
+                >
                   {l.label}
                 </a>
               </li>
             ))}
           </ul>
-          <a href="#enquire" className={`label-caps border px-5 py-2.5 transition-colors ${button}`}>
+          <a
+            href="#enquire"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToHash("#enquire");
+            }}
+            className={`label-caps border px-5 py-2.5 transition-colors ${button}`}
+          >
             Enquire
           </a>
         </div>
@@ -136,7 +167,11 @@ export default function Nav() {
             <li key={l.href}>
               <a
                 href={l.href}
-                onClick={() => setOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpen(false);
+                  setTimeout(() => scrollToHash(l.href), 60);
+                }}
                 className="font-display text-3xl text-limestone"
               >
                 {l.label}
@@ -146,7 +181,11 @@ export default function Nav() {
         </ul>
         <a
           href="#enquire"
-          onClick={() => setOpen(false)}
+          onClick={(e) => {
+            e.preventDefault();
+            setOpen(false);
+            setTimeout(() => scrollToHash("#enquire"), 60);
+          }}
           className="label-caps border border-limestone/40 px-8 py-4 text-limestone"
         >
           Enquire

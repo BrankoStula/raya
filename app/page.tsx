@@ -14,28 +14,6 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Real mix per the RAYA brochure: eighteen residences — ten two-bed pool-villas
-// in five mirrored pairs, eight apartments over three storeys behind a staffed
-// lobby. Prices as published; delivered furnished.
-const RESIDENCES = [
-  {
-    id: "villas",
-    name: "The Villas",
-    img: "/renders/villa-bedroom.jpg",
-    imgAlt: "Villa bedroom — timber headboard wall, soft morning light",
-    lead: "Ten two-bedroom pool villas in five mirrored pairs. 204 m² over three levels, each with a walled garden, a private pool and a roof terrace.",
-    facts: ["2 bedrooms · 3 levels", "Private pools", "US$499,900 · furnished"],
-  },
-  {
-    id: "apartments",
-    name: "The Apartments",
-    img: "/renders/apt-living.jpg",
-    imgAlt: "Apartment kitchen and living opening to the pool courtyard",
-    lead: "Eight one-bedroom apartments over three storeys at the road frontage, behind a staffed lobby. Ground-floor plans come with a private pool courtyard.",
-    facts: ["8 residences", "Staffed lobby", "From US$169,900 · furnished"],
-  },
-];
-
 // Two delivered interior schemes — light and dark — across villa and apartment.
 const SCHEMES = [
   { img: "/renders/scheme-villa-light.jpg", name: "Villa · Light", note: "pale oak · bone limewash" },
@@ -54,20 +32,29 @@ const MATERIALS = [
   { img: "/materials/deco-wash.jpg", name: "Deco wash — warm mineral" },
 ];
 
-const VILLA_GALLERY = [
+// House photo order (William): project exterior → unit exterior → entrance →
+// kitchen → living → bedrooms → bathroom → rooftop. A display word fills the
+// mosaic's breathing cell.
+type GalleryCell = { img: string; alt: string } | { word: string };
+
+const VILLA_GALLERY: GalleryCell[] = [
   { img: "/renders/villa-ext.jpg", alt: "Villa row exterior between the palms" },
+  { word: "Bingin." },
   { img: "/renders/villa-entrance.jpg", alt: "Villa entrance — timber screen and stone" },
-  { img: "/renders/villa-pool.jpg", alt: "Villa plunge pool with stepping pads" },
+  { img: "/renders/villa-kitchen.jpg", alt: "Villa kitchen — pale oak island under the sculptural light" },
   { img: "/renders/villa-living.jpg", alt: "Villa living room in limewash and linen" },
+  { img: "/renders/villa-bedroom.jpg", alt: "Villa bedroom — timber headboard wall, soft morning light" },
   { img: "/renders/villa-bed2.jpg", alt: "Villa bedroom with woven pendant light" },
   { img: "/renders/villa-rooftop.jpg", alt: "Villa rooftop terrace under a timber ceiling" },
 ];
 
-const APT_GALLERY = [
+const APT_GALLERY: GalleryCell[] = [
+  { img: "/renders/facade-front.jpg", alt: "The apartment house — front elevation on Jalan Kapur" },
+  { word: "Uluwatu." },
+  { img: "/renders/facade-left.jpg", alt: "The apartment house from the corner" },
   { img: "/renders/apt-entrance.jpg", alt: "Apartment entrance — plunge pool at the door" },
-  { img: "/renders/apt-pool.jpg", alt: "Ground-floor pool courtyard between limewash walls" },
-  { img: "/renders/apt-living2.jpg", alt: "Corner apartment living room with full-height glazing" },
   { img: "/renders/apt-kitchen2.jpg", alt: "Apartment kitchen island under woven pendants" },
+  { img: "/renders/apt-living2.jpg", alt: "Corner apartment living room with full-height glazing" },
   { img: "/renders/apt-bed.jpg", alt: "Apartment bedroom — timber slat headboard, garden view" },
   { img: "/renders/apt-bath.jpg", alt: "Apartment bathroom — stone vanity and rain shower" },
 ];
@@ -85,20 +72,32 @@ const MOSAIC = [
 ] as const;
 
 function Gallery({
-  label,
   items,
-  popIndex = 1,
+  popIndex = 2,
 }: {
-  label: string;
-  items: { img: string; alt: string }[];
+  items: GalleryCell[];
   popIndex?: number;
 }) {
   return (
-    <div className="mt-20">
-      <p data-reveal className="label-caps mb-8 text-mushroom">{label}</p>
+    <div data-reveal className="mt-14">
       <div className="grid grid-cols-2 gap-4 md:grid-cols-12 md:gap-5">
         {items.map((g, i) => {
           const m = MOSAIC[i % MOSAIC.length];
+          if ("word" in g) {
+            return (
+              <div
+                key={g.word}
+                className={`col-span-1 hidden items-center justify-center md:flex ${m.span} ${m.aspect}`}
+              >
+                <span
+                  className="font-display text-clay"
+                  style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}
+                >
+                  {g.word}
+                </span>
+              </div>
+            );
+          }
           return (
             <div
               key={g.img}
@@ -137,89 +136,82 @@ export default function Home() {
       {/* ── The collection — pinned horizontal gallery, clip-path reveals ── */}
       <CollectionShowcase />
 
-      {/* ── The residences ───────────────────────────────────────────────── */}
-      <section id="units" className="bg-bone px-[var(--container-inset)] py-28">
-        <div className="w-full">
-          <div className="max-w-xl">
-            <Eyebrow>03 · The residences</Eyebrow>
-            <h2
-              data-write
-              className="font-display text-espresso"
-              style={{ fontSize: "var(--text-h1)" }}
-            >
-              Two ways to hold the high ground.
-            </h2>
-            <p data-reveal className="mt-6 leading-relaxed text-walnut" style={{ fontSize: "var(--text-lead)" }}>
-              One arrival, eighteen residences: ten pool villas and eight
-              managed apartments, delivered furnished. Visa, PT PMA and land
-              tax are part of the price.
-            </p>
+      {/* ── The villas — house photo order: exterior → entrance → kitchen →
+             living → bedrooms → rooftop ─────────────────────────────────────── */}
+      <section id="villas" className="bg-bone px-[var(--container-inset)] py-28">
+        <div className="max-w-xl">
+          <Eyebrow>03 · The villas</Eyebrow>
+          <h2
+            data-write
+            className="font-display text-espresso"
+            style={{ fontSize: "var(--text-h1)" }}
+          >
+            Ten villas, five mirrored pairs.
+          </h2>
+          <p data-reveal className="mt-6 leading-relaxed text-walnut" style={{ fontSize: "var(--text-lead)" }}>
+            Two bedrooms over three levels — 204 m² with a walled garden, a
+            private pool and a roof terrace. Delivered furnished.
+          </p>
+          <div data-reveal className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+            {["2 bedrooms · 3 levels", "Private pools", "US$499,900 · furnished"].map((f) => (
+              <span key={f} className="label-caps text-mushroom">{f}</span>
+            ))}
           </div>
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
-            {RESIDENCES.map((r, i) => (
-              <figure
-                key={r.id}
-                data-slide={i === 0 ? "left" : "right"}
-                className="border border-espresso/10 bg-white/45"
-              >
-                <div className="aspect-[4/3] overflow-hidden">
+        </div>
+        <Gallery items={VILLA_GALLERY} popIndex={3} />
+      </section>
+
+      {/* ── The apartments — same photo order ────────────────────────────── */}
+      <section id="apartments" className="bg-bone px-[var(--container-inset)] py-28">
+        <div className="max-w-xl">
+          <Eyebrow>04 · The apartments</Eyebrow>
+          <h2
+            data-write
+            className="font-display text-espresso"
+            style={{ fontSize: "var(--text-h1)" }}
+          >
+            Eight apartments, one staffed lobby.
+          </h2>
+          <p data-reveal className="mt-6 leading-relaxed text-walnut" style={{ fontSize: "var(--text-lead)" }}>
+            One-bedroom plans over three storeys at the road frontage —
+            ground-floor homes with a private pool courtyard. Delivered
+            furnished.
+          </p>
+          <div data-reveal className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+            {["8 residences", "Staffed lobby", "From US$169,900 · furnished"].map((f) => (
+              <span key={f} className="label-caps text-mushroom">{f}</span>
+            ))}
+          </div>
+        </div>
+        <Gallery items={APT_GALLERY} popIndex={3} />
+
+        {/* the two interior schemes, same rooms in both temperatures */}
+        <div className="mt-24">
+          <p data-reveal className="label-caps mb-3 text-mushroom">Two interior schemes</p>
+          <p data-reveal className="mb-8 max-w-xl text-walnut">
+            Every residence is delivered furnished in one of two schemes,
+            light or dark. The same rooms, two temperatures.
+          </p>
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
+            {SCHEMES.map((sch, i) => (
+              <figure key={sch.name} data-slide={i < 2 ? "left" : "right"}>
+                <div className="aspect-[4/5] overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     data-parallax
                     data-lightbox
-                    src={r.img}
-                    alt={r.imgAlt}
+                    src={sch.img}
+                    alt={`${sch.name} interior scheme`}
                     loading="lazy"
                     className="h-full w-full object-cover"
                   />
                 </div>
-                <figcaption className="p-6">
-                  <span className="font-display text-2xl text-espresso">{r.name}</span>
-                  <p className="mt-3 leading-relaxed text-walnut">{r.lead}</p>
-                  <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
-                    {r.facts.map((f) => (
-                      <span key={f} className="label-caps text-mushroom">{f}</span>
-                    ))}
-                  </div>
+                <figcaption className="mt-3">
+                  <span className="font-display text-lg text-espresso">{sch.name}</span>
+                  <span className="label-caps ml-3 text-mushroom">{sch.note}</span>
                 </figcaption>
               </figure>
             ))}
-          </div>
-
-          {/* the villa in photos — full render set from the design team */}
-          <Gallery label="Inside the villa" items={VILLA_GALLERY} popIndex={2} />
-
-          {/* the apartments in photos — corner and mid units, full render set */}
-          <Gallery label="Inside the apartments" items={APT_GALLERY} popIndex={1} />
-
-          {/* the two interior schemes, same rooms in both temperatures */}
-          <div className="mt-20">
-            <p data-reveal className="label-caps mb-3 text-mushroom">Two interior schemes</p>
-            <p data-reveal className="mb-8 max-w-xl text-walnut">
-              Every residence is delivered furnished in one of two schemes,
-              light or dark. The same rooms, two temperatures.
-            </p>
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
-              {SCHEMES.map((s, i) => (
-                <figure key={s.name} data-slide={i < 2 ? "left" : "right"}>
-                  <div className="aspect-[4/5] overflow-hidden">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      data-parallax
-                      data-lightbox
-                      src={s.img}
-                      alt={`${s.name} interior scheme`}
-                      loading="lazy"
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <figcaption className="mt-3">
-                    <span className="font-display text-lg text-espresso">{s.name}</span>
-                    <span className="label-caps ml-3 text-mushroom">{s.note}</span>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
           </div>
         </div>
       </section>
@@ -228,7 +220,7 @@ export default function Home() {
              themed to the RAYA tokens via its query params ─────────────────── */}
       <section id="masterplan" className="bg-limestone px-[var(--container-inset)] py-28">
         <div className="max-w-xl">
-          <Eyebrow>04 · The master plan</Eyebrow>
+          <Eyebrow>05 · The master plan</Eyebrow>
           <h2
             data-write
             className="font-display text-espresso"
@@ -258,7 +250,7 @@ export default function Home() {
       <section id="materials" className="relative overflow-hidden bg-bone px-[var(--container-inset)] py-28">
         <div className="relative w-full">
           <div className="max-w-xl">
-            <Eyebrow>05 · Material truth</Eyebrow>
+            <Eyebrow>06 · Material truth</Eyebrow>
             <h2
               data-write
               className="font-display text-espresso"
@@ -293,7 +285,7 @@ export default function Home() {
              watermark ─────────────────────────────────────────────────────── */}
       <section id="enquire" className="relative overflow-hidden bg-bone px-[var(--container-inset)] py-28">
         <div className="max-w-xl">
-          <Eyebrow>06 · Enquire</Eyebrow>
+          <Eyebrow>07 · Enquire</Eyebrow>
           <h2
             data-write
             className="font-display text-espresso"
