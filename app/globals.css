@@ -227,7 +227,10 @@ html.lenis body {
    viewport can never push them up into the heading block above. */
 @media (min-width: 1024px) {
   .cs-panel {
-    height: min(52vh, calc(100vh - 37rem));
+    /* height-driven, width follows the render's own aspect — the panels are
+       never cropped, and the cap keeps them clear of the heading block */
+    height: min(56vh, calc(100vh - 34rem));
+    width: auto;
   }
 }
 
