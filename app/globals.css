@@ -223,6 +223,14 @@ html.lenis body {
   pointer-events: none;
 }
 
+/* Pinned collection panels are bottom-aligned; cap their height so a short
+   viewport can never push them up into the heading block above. */
+@media (min-width: 1024px) {
+  .cs-panel {
+    height: min(52vh, calc(100vh - 37rem));
+  }
+}
+
 /* gallery images open fullscreen */
 img[data-lightbox] {
   cursor: zoom-in;

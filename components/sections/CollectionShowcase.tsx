@@ -134,7 +134,7 @@ export default function CollectionShowcase() {
         {PANELS.map((p, i) => (
           <figure
             key={p.img}
-            className={`w-full shrink-0 ${p.w} ${i % 2 === 1 ? "lg:mb-24" : ""}`}
+            className={`w-full shrink-0 ${p.w} ${i % 2 === 1 ? "lg:mb-16" : ""}`}
           >
             <div className="cs-img overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -143,7 +143,7 @@ export default function CollectionShowcase() {
                 src={p.img}
                 alt={p.caption}
                 loading="lazy"
-                className="aspect-[3/2] w-full object-cover lg:h-[52vh] lg:aspect-auto"
+                className="cs-panel aspect-[3/2] w-full object-cover lg:aspect-auto"
               />
             </div>
             <figcaption className="label-caps mt-4 text-mushroom">
