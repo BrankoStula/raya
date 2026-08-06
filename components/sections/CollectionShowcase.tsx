@@ -129,12 +129,12 @@ export default function CollectionShowcase() {
       {/* the horizontal track — vertical stack below lg */}
       <div
         ref={trackRef}
-        className="mt-12 flex flex-col gap-10 px-[var(--container-inset)] lg:mt-0 lg:h-full lg:flex-row lg:items-end lg:gap-[6vw] lg:pb-16 lg:pr-[40vw] lg:pt-0"
+        className="mt-12 flex flex-col gap-10 px-[var(--container-inset)] lg:mt-0 lg:h-full lg:flex-row lg:items-end lg:gap-[6vw] lg:pb-6 lg:pr-[40vw] lg:pt-0"
       >
         {PANELS.map((p, i) => (
           <figure
             key={p.img}
-            className={`w-full shrink-0 ${p.w} lg:w-auto ${i % 2 === 1 ? "lg:mb-16" : ""}`}
+            className={`w-full shrink-0 ${p.w} ${i % 2 === 1 ? "lg:mb-8" : ""}`}
           >
             <div className="cs-img overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -143,7 +143,7 @@ export default function CollectionShowcase() {
                 src={p.img}
                 alt={p.caption}
                 loading="lazy"
-                className="cs-panel w-full lg:w-auto lg:max-w-none"
+                className="cs-panel aspect-[3/2] w-full object-cover lg:aspect-auto"
               />
             </div>
             <figcaption className="label-caps mt-4 text-mushroom">

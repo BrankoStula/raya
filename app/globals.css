@@ -223,14 +223,11 @@ html.lenis body {
   pointer-events: none;
 }
 
-/* Pinned collection panels are bottom-aligned; cap their height so a short
-   viewport can never push them up into the heading block above. */
+/* Pinned collection panels keep their 52vh size on normal screens; on short
+   viewports they trim just enough to stay clear of the heading block above. */
 @media (min-width: 1024px) {
   .cs-panel {
-    /* height-driven, width follows the render's own aspect — the panels are
-       never cropped, and the cap keeps them clear of the heading block */
-    height: min(56vh, calc(100vh - 34rem));
-    width: auto;
+    height: min(52vh, calc(100vh - 28rem));
   }
 }
 
