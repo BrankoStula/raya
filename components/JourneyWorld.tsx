@@ -20,7 +20,7 @@ const SECTIONS = [
     scroll: 1.8, // 13s: BEV glide, micro-blend at the golden frame, pre-change footage onward
     linger: 0.4,
     eyebrow: "Bingin · Uluwatu · Bali",
-    title: "Above the surf. Above the crowd.",
+    title: "RAYA Residences — Above the surf. Above the crowd.",
     body: "A villa & managed pool-apartment collection on the high ground of Uluwatu — ten villas and an apartment house in the palms.",
     cta: {
       primary: { label: "Book a site visit", href: "#enquire" },
