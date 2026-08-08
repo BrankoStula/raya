@@ -104,14 +104,16 @@ export default function Nav() {
             aria-hidden
             className="h-8 w-auto"
           />
-          {/* Stacked lockup: a single tracked line of "RAYA RESIDENCES" runs
-              wider than the bar allows next to the burger on a phone. */}
-          <span className={`flex flex-col leading-none ${text}`}>
+          {/* One line once there's room for it; stacked below lg, where a single
+              tracked line would crowd the links (and the burger on a phone). */}
+          <span
+            className={`flex flex-col leading-none lg:flex-row lg:items-baseline lg:gap-[0.25em] ${text}`}
+          >
             <span className="font-display text-xl" style={{ letterSpacing: "0.3em" }}>
               RAYA
             </span>
             <span
-              className="mt-[3px] font-display text-[0.55rem] opacity-70"
+              className="mt-[3px] font-display text-[0.55rem] opacity-70 lg:mt-0 lg:text-[0.7rem]"
               style={{ letterSpacing: "0.3em" }}
             >
               RESIDENCES
