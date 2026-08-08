@@ -104,11 +104,18 @@ export default function Nav() {
             aria-hidden
             className="h-8 w-auto"
           />
-          <span
-            className={`font-display text-xl ${text}`}
-            style={{ letterSpacing: "0.3em" }}
-          >
-            RAYA
+          {/* Stacked lockup: a single tracked line of "RAYA RESIDENCES" runs
+              wider than the bar allows next to the burger on a phone. */}
+          <span className={`flex flex-col leading-none ${text}`}>
+            <span className="font-display text-xl" style={{ letterSpacing: "0.3em" }}>
+              RAYA
+            </span>
+            <span
+              className="mt-[3px] font-display text-[0.55rem] opacity-70"
+              style={{ letterSpacing: "0.3em" }}
+            >
+              RESIDENCES
+            </span>
           </span>
         </a>
 
